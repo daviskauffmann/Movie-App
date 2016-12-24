@@ -3,12 +3,14 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { AddMoviePage } from '../pages/add-movie/add-movie';
+import { MovieInfoPage } from '../pages/movie-info/movie-info';
 
 @NgModule({
     declarations: [
         MyApp,
         HomePage,
-        AddMoviePage
+        AddMoviePage,
+        MovieInfoPage
     ],
     imports: [
         IonicModule.forRoot(MyApp)
@@ -17,7 +19,8 @@ import { AddMoviePage } from '../pages/add-movie/add-movie';
     entryComponents: [
         MyApp,
         HomePage,
-        AddMoviePage
+        AddMoviePage,
+        MovieInfoPage
     ],
     providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
 })

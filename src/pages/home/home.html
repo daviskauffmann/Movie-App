@@ -9,8 +9,8 @@
             </button>
         </ion-buttons>
         <ion-buttons end>
-            <button ion-button icon-only (click)="addMovie()">
-                <ion-icon name="add-circle"></ion-icon>
+            <button ion-button icon-only (click)="addMovieMenu()">
+                <ion-icon name="add"></ion-icon>
             </button>
         </ion-buttons>
     </ion-navbar>
@@ -21,9 +21,9 @@
             {{genre}}
         </ion-list-header>
         <ion-item-sliding *ngFor="let movie of getMovies(genre)">
-            <ion-item>
-                {{movie.name}}
-            </ion-item>
+            <button ion-item (click)="movieInfoMenu(movie)">
+                {{movie.Title}}
+            </button>
             <ion-item-options>
                 <button ion-button color="danger" (click)="removeMovie(movie)">
                     Remove

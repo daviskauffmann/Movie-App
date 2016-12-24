@@ -1,66 +1,31 @@
 import { Component } from '@angular/core';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
 
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, AlertController } from 'ionic-angular';
 
 import { AddMoviePage } from '../add-movie/add-movie';
+import { MovieInfoPage } from '../movie-info/movie-info';
 
 @Component({
     selector: 'page-home',
     templateUrl: 'home.html'
 })
 export class HomePage {
-    public movies: movie[];
+    public movies: any[] = [];
 
-    constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
-        this.movies = [
-            {
-                name: 'Movie1',
-                genre: 'Genre1'
-            },
-            {
-                name: 'Movie2',
-                genre: 'Genre2'
-            },
-            {
-                name: 'Movie3',
-                genre: 'Genre3'
-            },
-            {
-                name: 'Movie4',
-                genre: 'Genre1'
-            },
-            {
-                name: 'Movie5',
-                genre: 'Genre2'
-            },
-            {
-                name: 'Movie6',
-                genre: 'Genre3'
-            }
-        ];
-    }
-
-    addMovie() {
-        let modal = this.modalCtrl.create(AddMoviePage);
-        modal.onDidDismiss((movie) => {
-            if (movie) {
-                this.movies.push(movie);
-            }
-        });
-        modal.present();
-    }
-
-    removeMovie(movie: movie) {
-        this.movies.splice(this.movies.indexOf(movie), 1);
+    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, public http: Http) {
+        this.addMovie('Fight Club');
     }
 
     getGenres() {
         let genres: string[] = [];
         for (let i = 0; i < this.movies.length; i++) {
-            if (!this.arrayContains(genres, this.movies[i].genre)) {
-                genres.push(this.movies[i].genre);
+            if (!this.arrayContains(genres, this.movies[i].Genre)) {
+                genres.push(this.movies[i].Genre);
             }
         }
+        genres = genres.sort();
         return genres;
     }
 
@@ -74,17 +39,55 @@ export class HomePage {
     }
 
     getMovies(genre: string) {
-        let movies: movie[] = [];
+        let movies: any[] = [];
         for (let i = 0; i < this.movies.length; i++) {
-            if (this.movies[i].genre == genre) {
+            if (this.movies[i].Genre == genre) {
                 movies.push(this.movies[i]);
             }
         }
         return movies;
     }
-}
 
-interface movie {
-    name: string;
-    genre: string;
+    addMovie(name: string) {
+        this.http.get('http://www.omdbapi.com/?t=' + name + '&y=&plot=short&r=json')
+            .subscribe(data => {
+                let movie = data.json();
+                console.log(movie);
+                for (let i = 0; i < this.movies.length; i++) {
+                    if (this.movies[i].Title == movie.Title) {
+                        movie.Response = 'False';
+                        movie.Error = 'Movie already listed!';
+                    }
+                }
+                if (movie.Response == "False") {
+                    let alert = this.alertCtrl.create({
+                        title: movie.Error,
+                        buttons: ['OK']
+                    });
+                    alert.present();
+                    return;
+                }
+                this.movies.push(movie);
+            });
+    }
+
+    removeMovie(movie: any) {
+        this.movies.splice(this.movies.indexOf(movie), 1);
+    }
+
+    addMovieMenu() {
+        let modal = this.modalCtrl.create(AddMoviePage);
+        modal.onDidDismiss((name) => {
+            if (name) {
+                this.addMovie(name);
+            }
+        });
+        modal.present();
+    }
+
+    movieInfoMenu(movie: any) {
+        this.navCtrl.push(MovieInfoPage, {
+            movie: movie
+        });
+    }
 }

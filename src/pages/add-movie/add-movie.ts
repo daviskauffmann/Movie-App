@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController, ViewController } from 'ionic-angular';
+import { NavController, ViewController, AlertController } from 'ionic-angular';
 
 @Component({
     selector: 'page-add-movie',
@@ -8,9 +8,8 @@ import { NavController, ViewController } from 'ionic-angular';
 })
 export class AddMoviePage {
     name: string;
-    genre: string;
 
-    constructor(public navCtrl: NavController, public viewCtrl: ViewController) {
+    constructor(public navCtrl: NavController, public viewCtrl: ViewController, public alertCtrl: AlertController) {
 
     }
 
@@ -18,11 +17,15 @@ export class AddMoviePage {
         this.viewCtrl.dismiss();
     }
 
-    saveMovie() {
-        let movie = {
-            name: this.name,
-            genre: this.genre
+    addMovie() {
+        if (!this.name) {
+            let alert = this.alertCtrl.create({
+                title: 'You must enter a name',
+                buttons: ['OK']
+            });
+            alert.present();
+            return;
         }
-        this.viewCtrl.dismiss(movie);
+        this.viewCtrl.dismiss(this.name);
     }
 }
