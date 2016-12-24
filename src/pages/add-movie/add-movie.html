@@ -1,0 +1,25 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>
+            Add Movie
+        </ion-title>
+        <ion-buttons start>
+            <button ion-button icon-only (click)="dismiss()">
+                Cancel
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label floating>Name</ion-label>
+            <ion-input type="text" [(ngModel)]="name"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Genre</ion-label>
+            <ion-input type="text" [(ngModel)]="genre"></ion-input>
+        </ion-item>
+    </ion-list>
+    <button ion-button block (click)="saveMovie()">Add</button>
+</ion-content>

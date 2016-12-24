@@ -1,0 +1,34 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>
+            What To Watch
+        </ion-title>
+        <ion-buttons start>
+            <button ion-button menuToggle icon-only>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="addMovie()">
+                <ion-icon name="add-circle"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+    <ion-list *ngFor="let genre of getGenres()">
+        <ion-list-header>
+            {{genre}}
+        </ion-list-header>
+        <ion-item-sliding *ngFor="let movie of getMovies(genre)">
+            <ion-item>
+                {{movie.name}}
+            </ion-item>
+            <ion-item-options>
+                <button ion-button color="danger" (click)="removeMovie(movie)">
+                    Remove
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+</ion-content>
