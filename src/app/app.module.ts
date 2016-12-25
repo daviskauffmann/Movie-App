@@ -3,6 +3,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { AddMoviePage } from '../pages/add-movie/add-movie';
+import { CreateMoviePage } from '../pages/create-movie/create-movie';
 import { MovieInfoPage } from '../pages/movie-info/movie-info';
 
 @NgModule({
@@ -10,6 +11,7 @@ import { MovieInfoPage } from '../pages/movie-info/movie-info';
         MyApp,
         HomePage,
         AddMoviePage,
+        CreateMoviePage,
         MovieInfoPage
     ],
     imports: [
@@ -20,6 +22,7 @@ import { MovieInfoPage } from '../pages/movie-info/movie-info';
         MyApp,
         HomePage,
         AddMoviePage,
+        CreateMoviePage,
         MovieInfoPage
     ],
     providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]

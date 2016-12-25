@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
 
-import { NavController, ModalController, AlertController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 
 import { AddMoviePage } from '../add-movie/add-movie';
+import { CreateMoviePage } from '../create-movie/create-movie';
 import { MovieInfoPage } from '../movie-info/movie-info';
 
 @Component({
@@ -12,10 +11,20 @@ import { MovieInfoPage } from '../movie-info/movie-info';
     templateUrl: 'home.html'
 })
 export class HomePage {
-    public movies: any[] = [];
+    // image on list
+    // searchbar
+    // SQL database
+    public movies: any[];
 
-    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, public http: Http) {
-        this.addMovie('Fight Club');
+    constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
+        this.movies = [];
+    }
+
+    addMovieMenu() {
+        let modal = this.modalCtrl.create(AddMoviePage, {
+            movies: this.movies
+        });
+        modal.present();
     }
 
     getGenres() {
@@ -48,46 +57,14 @@ export class HomePage {
         return movies;
     }
 
-    addMovie(name: string) {
-        this.http.get('http://www.omdbapi.com/?t=' + name + '&y=&plot=short&r=json')
-            .subscribe(data => {
-                let movie = data.json();
-                console.log(movie);
-                for (let i = 0; i < this.movies.length; i++) {
-                    if (this.movies[i].Title == movie.Title) {
-                        movie.Response = 'False';
-                        movie.Error = 'Movie already listed!';
-                    }
-                }
-                if (movie.Response == "False") {
-                    let alert = this.alertCtrl.create({
-                        title: movie.Error,
-                        buttons: ['OK']
-                    });
-                    alert.present();
-                    return;
-                }
-                this.movies.push(movie);
-            });
+    movieInfoMenu(movie: any) {
+        this.navCtrl.push(MovieInfoPage, {
+            movies: this.movies,
+            movie: movie
+        });
     }
 
     removeMovie(movie: any) {
         this.movies.splice(this.movies.indexOf(movie), 1);
-    }
-
-    addMovieMenu() {
-        let modal = this.modalCtrl.create(AddMoviePage);
-        modal.onDidDismiss((name) => {
-            if (name) {
-                this.addMovie(name);
-            }
-        });
-        modal.present();
-    }
-
-    movieInfoMenu(movie: any) {
-        this.navCtrl.push(MovieInfoPage, {
-            movie: movie
-        });
     }
 }

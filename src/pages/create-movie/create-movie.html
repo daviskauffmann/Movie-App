@@ -1,0 +1,65 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>
+            Create Movie
+        </ion-title>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+                Cancel
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label floating>Title (required)</ion-label>
+            <ion-input type="text" [(ngModel)]="title"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Genre (required)</ion-label>
+            <ion-input type="text" [(ngModel)]="genre"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Year</ion-label>
+            <ion-input type="text" [(ngModel)]="year"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Rated</ion-label>
+            <ion-input type="text" [(ngModel)]="rated"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Runtime</ion-label>
+            <ion-input type="text" [(ngModel)]="runtime"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Released</ion-label>
+            <ion-input type="text" [(ngModel)]="released"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Country</ion-label>
+            <ion-input type="text" [(ngModel)]="country"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Plot</ion-label>
+            <ion-input type="text" [(ngModel)]="plot"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Director</ion-label>
+            <ion-input type="text" [(ngModel)]="director"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Writer</ion-label>
+            <ion-input type="text" [(ngModel)]="writer"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Actors</ion-label>
+            <ion-input type="text" [(ngModel)]="actors"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Awards</ion-label>
+            <ion-input type="text" [(ngModel)]="awards"></ion-input>
+        </ion-item>
+    </ion-list>
+    <button ion-button block (click)="createMovie()">Create</button>
+</ion-content>
