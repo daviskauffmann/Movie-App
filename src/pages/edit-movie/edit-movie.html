@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar color="primary">
         <ion-title>
-            Create Movie
+            Edit Movie
         </ion-title>
         <ion-buttons start>
             <button ion-button (click)="cancel()">
@@ -27,7 +27,7 @@
         </ion-item>
         <ion-item>
             <ion-label floating>Year</ion-label>
-            <ion-datetime displayFormat="YYYY" [(ngModel)]="year"></ion-datetime>
+            <ion-input type="text" [(ngModel)]="year"></ion-input>
         </ion-item>
         <ion-item>
             <ion-label floating>Rated</ion-label>
@@ -39,7 +39,7 @@
         </ion-item>
         <ion-item>
             <ion-label floating>Released</ion-label>
-            <ion-datetime displayFormat="DD MMMM YYYY" [(ngModel)]="released"></ion-datetime>
+            <ion-input type="text" [(ngModel)]="released"></ion-input>
         </ion-item>
         <ion-item>
             <ion-label floating>Country</ion-label>

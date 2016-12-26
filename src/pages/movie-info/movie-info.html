@@ -3,6 +3,11 @@
         <ion-title>
             {{movie.Title}}
         </ion-title>
+        <ion-buttons end>
+            <button ion-button (click)="editMovie()">
+                Edit
+            </button>
+        </ion-buttons>
     </ion-navbar>
 </ion-header>
 <ion-content padding>
@@ -25,14 +30,14 @@
     <p>{{movie.Writer}}</p>
     <h1>Actors</h1>
     <p>{{movie.Actors}}</p>
+    <h1>Awards</h1>
+    <p>{{movie.Awards}}</p>
     <h1>IMDB Rating</h1>
     <p>{{movie.imdbRating}}</p>
     <h1>IMDB Votes</h1>
     <p>{{movie.imdbVotes}}</p>
     <h1>Metascore</h1>
     <p>{{movie.Metascore}}</p>
-    <h1>Awards</h1>
-    <p>{{movie.Awards}}</p>
     <button ion-button full color="danger" (click)="removeMovie()">
         Remove
     </button>

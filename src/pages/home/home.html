@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar color="primary">
         <ion-title>
-            What To Watch
+            Things To Watch
         </ion-title>
         <ion-buttons start>
             <button ion-button menuToggle icon-only>
@@ -9,13 +9,14 @@
             </button>
         </ion-buttons>
         <ion-buttons end>
-            <button ion-button icon-only (click)="addMovieMenu()">
+            <button ion-button icon-only (click)="addMovie()">
                 <ion-icon name="add"></ion-icon>
             </button>
         </ion-buttons>
     </ion-navbar>
 </ion-header>
 <ion-content padding>
+    <ion-searchbar (ionInput)="filterMovies($event)"></ion-searchbar>
     <ion-list *ngFor="let genre of getGenres()">
         <ion-list-header>
             {{genre}}

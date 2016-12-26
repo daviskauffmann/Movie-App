@@ -3,14 +3,9 @@
         <ion-title>
             Add Movie
         </ion-title>
-        <ion-buttons start>
-            <button ion-button (click)="dismiss()">
-                Cancel
-            </button>
-        </ion-buttons>
         <ion-buttons end>
-            <button ion-button icon-only (click)="createMovieMenu()">
-                <ion-icon name="create"></ion-icon>
+            <button ion-button (click)="createMovie()">
+                Create
             </button>
         </ion-buttons>
     </ion-navbar>
@@ -22,7 +17,7 @@
             <ion-input type="text" [(ngModel)]="title"></ion-input>
         </ion-item>
     </ion-list>
-    <button ion-button block (click)="searchMovie()">
-        Search
+    <button ion-button block (click)="addMovie()">
+        Add
     </button>
 </ion-content>

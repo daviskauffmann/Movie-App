@@ -5,6 +5,7 @@ import { HomePage } from '../pages/home/home';
 import { AddMoviePage } from '../pages/add-movie/add-movie';
 import { CreateMoviePage } from '../pages/create-movie/create-movie';
 import { MovieInfoPage } from '../pages/movie-info/movie-info';
+import { EditMoviePage } from '../pages/edit-movie/edit-movie';
 
 @NgModule({
     declarations: [
@@ -12,7 +13,8 @@ import { MovieInfoPage } from '../pages/movie-info/movie-info';
         HomePage,
         AddMoviePage,
         CreateMoviePage,
-        MovieInfoPage
+        MovieInfoPage,
+        EditMoviePage
     ],
     imports: [
         IonicModule.forRoot(MyApp)
@@ -23,7 +25,8 @@ import { MovieInfoPage } from '../pages/movie-info/movie-info';
         HomePage,
         AddMoviePage,
         CreateMoviePage,
-        MovieInfoPage
+        MovieInfoPage,
+        EditMoviePage
     ],
     providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
 })

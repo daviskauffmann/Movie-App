@@ -23,13 +23,14 @@ export class CreateMoviePage {
 
     constructor(public navCtrl: NavController, public viewCtrl: ViewController, public alertCtrl: AlertController) {
         this.movies = viewCtrl.data.movies;
+        this.title = viewCtrl.data.title;
     }
 
-    dismiss() {
+    cancel() {
         this.viewCtrl.dismiss();
     }
 
-    createMovie() {
+    done() {
         if (!this.title) {
             let alert = this.alertCtrl.create({
                 title: 'You must enter a title',

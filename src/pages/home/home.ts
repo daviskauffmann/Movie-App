@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
 import { AddMoviePage } from '../add-movie/add-movie';
 import { CreateMoviePage } from '../create-movie/create-movie';
@@ -15,23 +15,35 @@ export class HomePage {
     // searchbar
     // SQL database
     public movies: any[];
+    public filteredMovies: any[];
 
-    constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
+    constructor(public navCtrl: NavController) {
         this.movies = [];
+        this.filteredMovies = this.movies;
     }
 
-    addMovieMenu() {
-        let modal = this.modalCtrl.create(AddMoviePage, {
+    addMovie() {
+        this.navCtrl.push(AddMoviePage, {
             movies: this.movies
         });
-        modal.present();
+    }
+
+    filterMovies(e: any) {
+        this.filteredMovies = this.movies;
+        let val = e.target.value;
+        console.log(val);
+        if (val && val.trim() != '') {
+            this.filteredMovies = this.movies.filter((movie) => {
+                return (movie.Title.toLowerCase().indexOf(val.toLowerCase()) > -1);
+            })
+        }
     }
 
     getGenres() {
         let genres: string[] = [];
-        for (let i = 0; i < this.movies.length; i++) {
-            if (!this.arrayContains(genres, this.movies[i].Genre)) {
-                genres.push(this.movies[i].Genre);
+        for (let i = 0; i < this.filteredMovies.length; i++) {
+            if (!this.arrayContains(genres, this.filteredMovies[i].Genre)) {
+                genres.push(this.filteredMovies[i].Genre);
             }
         }
         genres = genres.sort();
@@ -49,9 +61,9 @@ export class HomePage {
 
     getMovies(genre: string) {
         let movies: any[] = [];
-        for (let i = 0; i < this.movies.length; i++) {
-            if (this.movies[i].Genre == genre) {
-                movies.push(this.movies[i]);
+        for (let i = 0; i < this.filteredMovies.length; i++) {
+            if (this.filteredMovies[i].Genre == genre) {
+                movies.push(this.filteredMovies[i]);
             }
         }
         return movies;

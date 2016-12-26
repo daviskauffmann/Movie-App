@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-import { NavController, ViewController, ModalController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController, LoadingController } from 'ionic-angular';
 
 import { CreateMoviePage } from '../create-movie/create-movie';
 
@@ -14,37 +14,41 @@ export class AddMoviePage {
     movies: any[];
     title: string;
 
-    constructor(public navCtrl: NavController, public viewCtrl: ViewController, public modalCtrl: ModalController, public alertCtrl: AlertController, public http: Http) {
-        this.movies = viewCtrl.data.movies;
+    constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public alertCtrl: AlertController, public http: Http, public loadingCtrl: LoadingController) {
+        this.movies = navParams.data.movies;
     }
 
-    createMovieMenu() {
+    createMovie() {
         let modal = this.modalCtrl.create(CreateMoviePage, {
-            movies: this.movies
+            movies: this.movies,
+            title: this.title
         });
         modal.onDidDismiss((success) => {
             if (success) {
-                this.viewCtrl.dismiss();
+                this.navCtrl.pop();
             }
         });
         modal.present();
     }
 
-    dismiss() {
-        this.viewCtrl.dismiss();
-    }
-
-    searchMovie() {
+    addMovie() {
         if (!this.title) {
             let alert = this.alertCtrl.create({
-                title: 'You must enter a name',
+                title: 'You must enter a title',
                 buttons: ['OK']
             });
             alert.present();
             return;
         }
-        this.http.get('http://www.omdbapi.com/?t=' + this.title + '&y=&plot=short&r=json').subscribe(data => {
-                let movie = data.json();
+        let response = this.http.get('http://www.omdbapi.com/?t=' + this.title + '&y=&plot=short&r=json');
+        let loader = this.loadingCtrl.create({
+            content: 'Searching...',
+        });
+        loader.present();
+        response.subscribe(
+            (value) => {
+                console.log(value);
+                let movie = value.json();
                 console.log(movie);
                 if (movie.Response == 'False') {
                     switch (movie.Error) {
@@ -59,7 +63,7 @@ export class AddMoviePage {
                                     {
                                         text: 'Yes',
                                         handler: () => {
-                                            this.createMovieMenu();
+                                            this.createMovie();
                                         }
                                     }
                                 ]
@@ -74,6 +78,7 @@ export class AddMoviePage {
                             alert.present();
                             return;
                     }
+
                 }
                 for (let i = 0; i < this.movies.length; i++) {
                     if (this.movies[i].Title == movie.Title) {
@@ -86,7 +91,15 @@ export class AddMoviePage {
                     }
                 }
                 this.movies.push(movie);
-                this.viewCtrl.dismiss();
+                this.navCtrl.pop();
+            },
+            (error) => {
+                loader.dismiss();
+                console.log(error);
+            },
+            () => {
+                loader.dismiss();
+                console.log('success');
             }
         );
     }
