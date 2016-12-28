@@ -37,11 +37,11 @@ export class EditMoviePage {
         this.awards = this.movie.Awards;
     }
 
-    cancel() {
+    cancel(): void {
         this.viewCtrl.dismiss();
     }
 
-    done() {
+    done(): void {
         if (!this.title) {
             let alert = this.alertCtrl.create({
                 title: 'You must enter a title',

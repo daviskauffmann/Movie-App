@@ -3,8 +3,9 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { AddMoviePage } from '../add-movie/add-movie';
-import { CreateMoviePage } from '../create-movie/create-movie';
 import { MovieInfoPage } from '../movie-info/movie-info';
+
+import { Data } from '../../providers/data';
 
 @Component({
     selector: 'page-home',
@@ -12,14 +13,18 @@ import { MovieInfoPage } from '../movie-info/movie-info';
 })
 export class HomePage {
     // image on list
-    // searchbar
-    // SQL database
+    // SQL database? local?
     public movies: any[];
-    public filteredMovies: any[];
+    public genreFilter: string;
 
-    constructor(public navCtrl: NavController) {
+    constructor(public navCtrl: NavController, public data: Data) {
         this.movies = [];
-        this.filteredMovies = this.movies;
+        data.getData('movies').then((movies) => {
+            if (movies) {
+                this.movies = JSON.parse(movies);
+            }
+        });
+        this.genreFilter = '';
     }
 
     addMovie() {
@@ -28,29 +33,22 @@ export class HomePage {
         });
     }
 
-    filterMovies(e: any) {
-        this.filteredMovies = this.movies;
-        let val = e.target.value;
-        console.log(val);
-        if (val && val.trim() != '') {
-            this.filteredMovies = this.movies.filter((movie) => {
-                return (movie.Title.toLowerCase().indexOf(val.toLowerCase()) > -1);
-            })
-        }
-    }
-
-    getGenres() {
+    getGenres(): string[] {
         let genres: string[] = [];
-        for (let i = 0; i < this.filteredMovies.length; i++) {
-            if (!this.arrayContains(genres, this.filteredMovies[i].Genre)) {
-                genres.push(this.filteredMovies[i].Genre);
+        for (let i = 0; i < this.movies.length; i++) {
+            if (!this.arrayContains(genres, this.movies[i].Genre)) {
+                genres.push(this.movies[i].Genre);
             }
         }
-        genres = genres.sort();
-        return genres;
+        if (this.genreFilter && this.genreFilter.trim() != '') {
+            genres = genres.filter((genre) => {
+                return (genre.toLowerCase().indexOf(this.genreFilter.toLowerCase()) > -1);
+            });
+        }
+        return genres.sort();
     }
 
-    arrayContains(array: any[], element: any) {
+    arrayContains(array: any[], element: any): boolean {
         for (let i = 0; i < array.length; i++) {
             if (array[i] == element) {
                 return true;
@@ -59,24 +57,21 @@ export class HomePage {
         return false;
     }
 
-    getMovies(genre: string) {
-        let movies: any[] = [];
-        for (let i = 0; i < this.filteredMovies.length; i++) {
-            if (this.filteredMovies[i].Genre == genre) {
-                movies.push(this.filteredMovies[i]);
-            }
-        }
-        return movies;
+    getMovies(genre: string): any[] {
+        let movies = this.movies.filter((movie) => {
+            return movie.Genre == genre;
+        });
+        return movies.sort();
     }
 
-    movieInfoMenu(movie: any) {
+    movieInfo(movie: any): void {
         this.navCtrl.push(MovieInfoPage, {
             movies: this.movies,
             movie: movie
         });
     }
 
-    removeMovie(movie: any) {
+    removeMovie(movie: any): void {
         this.movies.splice(this.movies.indexOf(movie), 1);
     }
 }

@@ -17,15 +17,15 @@ export class MovieInfoPage {
         this.movie = navParams.get('movie');
     }
 
-    editMovie() {
+    editMovie(): void {
         let modal = this.modalCtrl.create(EditMoviePage, {
             movie: this.movie,
         });
         modal.present();
     }
 
-    removeMovie() {
-        this.navCtrl.pop();
+    removeMovie(): void {
         this.movies.splice(this.movies.indexOf(this.movie), 1);
+        this.navCtrl.pop();
     }
 }

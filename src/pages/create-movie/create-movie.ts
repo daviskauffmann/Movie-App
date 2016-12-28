@@ -26,14 +26,14 @@ export class CreateMoviePage {
         this.title = viewCtrl.data.title;
     }
 
-    cancel() {
+    cancel(): void {
         this.viewCtrl.dismiss();
     }
 
-    done() {
+    done(): void {
         if (!this.title) {
             let alert = this.alertCtrl.create({
-                title: 'You must enter a title',
+                title: 'Must enter a title.',
                 buttons: ['OK']
             });
             alert.present();
@@ -41,7 +41,7 @@ export class CreateMoviePage {
         }
         if (!this.genre) {
             let alert = this.alertCtrl.create({
-                title: 'You must enter a genre',
+                title: 'Must enter a genre.',
                 buttons: ['OK']
             });
             alert.present();

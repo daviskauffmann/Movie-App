@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
 
 import { NavController, NavParams, ModalController, AlertController, LoadingController } from 'ionic-angular';
 
@@ -18,7 +17,7 @@ export class AddMoviePage {
         this.movies = navParams.data.movies;
     }
 
-    createMovie() {
+    createMovie(): void {
         let modal = this.modalCtrl.create(CreateMoviePage, {
             movies: this.movies,
             title: this.title
@@ -31,25 +30,23 @@ export class AddMoviePage {
         modal.present();
     }
 
-    addMovie() {
+    addMovie(): void {
         if (!this.title) {
             let alert = this.alertCtrl.create({
-                title: 'You must enter a title',
+                title: 'Must enter a title.',
                 buttons: ['OK']
             });
             alert.present();
             return;
         }
-        let response = this.http.get('http://www.omdbapi.com/?t=' + this.title + '&y=&plot=short&r=json');
         let loader = this.loadingCtrl.create({
             content: 'Searching...',
         });
         loader.present();
+        let response = this.http.get('http://www.omdbapi.com/?t=' + this.title + '&y=&plot=short&r=json');
         response.subscribe(
             (value) => {
-                console.log(value);
                 let movie = value.json();
-                console.log(movie);
                 if (movie.Response == 'False') {
                     switch (movie.Error) {
                         case 'Movie not found!':
@@ -99,7 +96,6 @@ export class AddMoviePage {
             },
             () => {
                 loader.dismiss();
-                console.log('success');
             }
         );
     }
