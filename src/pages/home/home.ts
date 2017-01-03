@@ -5,39 +5,27 @@ import { NavController } from 'ionic-angular';
 import { AddMoviePage } from '../add-movie/add-movie';
 import { MovieInfoPage } from '../movie-info/movie-info';
 
-import { Data } from '../../providers/data';
+import { Movies } from '../../providers/movies';
 
 @Component({
     selector: 'page-home',
     templateUrl: 'home.html'
 })
 export class HomePage {
-    // image on list
-    // SQL database? local?
-    public movies: any[];
-    public genreFilter: string;
+    public genreFilter: string = '';
 
-    constructor(public navCtrl: NavController, public data: Data) {
-        this.movies = [];
-        data.getData('movies').then((movies) => {
-            if (movies) {
-                this.movies = JSON.parse(movies);
-            }
-        });
-        this.genreFilter = '';
+    constructor(public navCtrl: NavController, public movieService: Movies) {
     }
 
     addMovie() {
-        this.navCtrl.push(AddMoviePage, {
-            movies: this.movies
-        });
+        this.navCtrl.push(AddMoviePage);
     }
 
     getGenres(): string[] {
         let genres: string[] = [];
-        for (let i = 0; i < this.movies.length; i++) {
-            if (!this.arrayContains(genres, this.movies[i].Genre)) {
-                genres.push(this.movies[i].Genre);
+        for (let i = 0; i < this.movieService.movies.length; i++) {
+            if (!this.arrayContains(genres, this.movieService.movies[i].Genre)) {
+                genres.push(this.movieService.movies[i].Genre);
             }
         }
         if (this.genreFilter && this.genreFilter.trim() != '') {
@@ -58,7 +46,7 @@ export class HomePage {
     }
 
     getMovies(genre: string): any[] {
-        let movies = this.movies.filter((movie) => {
+        let movies = this.movieService.movies.filter((movie) => {
             return movie.Genre == genre;
         });
         return movies.sort();
@@ -66,12 +54,11 @@ export class HomePage {
 
     movieInfo(movie: any): void {
         this.navCtrl.push(MovieInfoPage, {
-            movies: this.movies,
             movie: movie
         });
     }
 
     removeMovie(movie: any): void {
-        this.movies.splice(this.movies.indexOf(movie), 1);
+        this.movieService.removeMovie(movie);
     }
 }

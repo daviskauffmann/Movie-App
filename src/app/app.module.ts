@@ -12,7 +12,7 @@ import { CreateMoviePage } from '../pages/create-movie/create-movie';
 import { MovieInfoPage } from '../pages/movie-info/movie-info';
 import { EditMoviePage } from '../pages/edit-movie/edit-movie';
 
-import { Data } from '../providers/data';
+import { Movies } from '../providers/movies';
 
 @NgModule({
     declarations: [
@@ -35,6 +35,6 @@ import { Data } from '../providers/data';
         MovieInfoPage,
         EditMoviePage
     ],
-    providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, Storage, Data]
+    providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, Storage, Movies]
 })
 export class AppModule { }

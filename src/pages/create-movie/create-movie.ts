@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 
 import { NavController, ViewController, AlertController } from 'ionic-angular';
 
+import { Movies } from '../../providers/movies';
+
 @Component({
     selector: 'page-create-movie',
     templateUrl: 'create-movie.html'
 })
 export class CreateMoviePage {
-    movies: any[];
     title: string;
     genre: string;
     year: string;
@@ -21,8 +22,7 @@ export class CreateMoviePage {
     actors: string;
     awards: string;
 
-    constructor(public navCtrl: NavController, public viewCtrl: ViewController, public alertCtrl: AlertController) {
-        this.movies = viewCtrl.data.movies;
+    constructor(public navCtrl: NavController, public viewCtrl: ViewController, public alertCtrl: AlertController, public movieService: Movies) {
         this.title = viewCtrl.data.title;
     }
 
@@ -61,7 +61,7 @@ export class CreateMoviePage {
             Actors: this.actors,
             Awards: this.awards
         }
-        this.movies.push(movie);
+        this.movieService.addMovie(movie);
         this.viewCtrl.dismiss(true);
     }
 }

@@ -5,21 +5,21 @@ import { NavController, NavParams, ModalController, AlertController, LoadingCont
 
 import { CreateMoviePage } from '../create-movie/create-movie';
 
+import { Movies } from '../../providers/movies';
+
 @Component({
     selector: 'page-add-movie',
     templateUrl: 'add-movie.html'
 })
 export class AddMoviePage {
-    movies: any[];
     title: string;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public alertCtrl: AlertController, public http: Http, public loadingCtrl: LoadingController) {
-        this.movies = navParams.data.movies;
+    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, public http: Http, public loadingCtrl: LoadingController, public movieService: Movies) {
+
     }
 
     createMovie(): void {
         let modal = this.modalCtrl.create(CreateMoviePage, {
-            movies: this.movies,
             title: this.title
         });
         modal.onDidDismiss((success) => {
@@ -77,8 +77,8 @@ export class AddMoviePage {
                     }
 
                 }
-                for (let i = 0; i < this.movies.length; i++) {
-                    if (this.movies[i].Title == movie.Title) {
+                for (let i = 0; i < this.movieService.movies.length; i++) {
+                    if (this.movieService.movies[i].Title == movie.Title) {
                         let alert = this.alertCtrl.create({
                             title: 'Movie already listed!',
                             buttons: ['OK']
@@ -87,7 +87,7 @@ export class AddMoviePage {
                         return;
                     }
                 }
-                this.movies.push(movie);
+                this.movieService.addMovie(movie);
                 this.navCtrl.pop();
             },
             (error) => {

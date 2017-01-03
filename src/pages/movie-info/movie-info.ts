@@ -4,16 +4,16 @@ import { NavController, NavParams, ModalController } from 'ionic-angular';
 
 import { EditMoviePage } from '../edit-movie/edit-movie';
 
+import { Movies } from '../../providers/movies';
+
 @Component({
     selector: 'page-movie-info',
     templateUrl: 'movie-info.html'
 })
 export class MovieInfoPage {
-    movies: any[];
     movie: any;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
-        this.movies = navParams.get('movies');
+    constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public movieService: Movies) {
         this.movie = navParams.get('movie');
     }
 
@@ -25,7 +25,7 @@ export class MovieInfoPage {
     }
 
     removeMovie(): void {
-        this.movies.splice(this.movies.indexOf(this.movie), 1);
+        this.movieService.removeMovie(this.movie);
         this.navCtrl.pop();
     }
 }
