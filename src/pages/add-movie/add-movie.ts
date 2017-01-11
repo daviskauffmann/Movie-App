@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
 
-import { NavController, NavParams, ModalController, AlertController, LoadingController } from 'ionic-angular';
+import { NavController, ModalController, AlertController, LoadingController } from 'ionic-angular';
 
 import { CreateMoviePage } from '../create-movie/create-movie';
 
