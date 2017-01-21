@@ -1,20 +1,17 @@
 import { Component } from '@angular/core';
-
 import { NavController } from 'ionic-angular';
-
 import { AddMoviePage } from '../add-movie/add-movie';
 import { MovieInfoPage } from '../movie-info/movie-info';
-
 import { Movies } from '../../providers/movies';
 
 @Component({
-    selector: 'page-home',
-    templateUrl: 'home.html'
+    selector: 'page-to-watch',
+    templateUrl: 'to-watch.html'
 })
-export class HomePage {
+export class ToWatchPage {
     public genreFilter: string = '';
 
-    constructor(public navCtrl: NavController, public movieService: Movies) {
+    constructor(public navCtrl: NavController, public movies: Movies) {
     }
 
     addMovie() {
@@ -23,9 +20,9 @@ export class HomePage {
 
     getGenres(): string[] {
         let genres: string[] = [];
-        for (let i = 0; i < this.movieService.movies.length; i++) {
-            if (!this.arrayContains(genres, this.movieService.movies[i].Genre)) {
-                genres.push(this.movieService.movies[i].Genre);
+        for (let i = 0; i < this.movies.toWatch.length; i++) {
+            if (!this.arrayContains(genres, this.movies.toWatch[i].Genre)) {
+                genres.push(this.movies.toWatch[i].Genre);
             }
         }
         if (this.genreFilter && this.genreFilter.trim() != '') {
@@ -46,7 +43,7 @@ export class HomePage {
     }
 
     getMovies(genre: string): any[] {
-        let movies = this.movieService.movies.filter((movie) => {
+        let movies = this.movies.toWatch.filter((movie) => {
             return movie.Genre == genre;
         });
         return movies.sort();
@@ -59,6 +56,6 @@ export class HomePage {
     }
 
     removeMovie(movie: any): void {
-        this.movieService.removeMovie(movie);
+        this.movies.removeToWatch(movie);
     }
 }

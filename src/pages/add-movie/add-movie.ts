@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
-
 import { NavController, ModalController, AlertController, LoadingController } from 'ionic-angular';
-
 import { CreateMoviePage } from '../create-movie/create-movie';
-
 import { Movies } from '../../providers/movies';
 
 @Component({
@@ -14,7 +11,7 @@ import { Movies } from '../../providers/movies';
 export class AddMoviePage {
     title: string;
 
-    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, public http: Http, public loadingCtrl: LoadingController, public movieService: Movies) {
+    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, public http: Http, public loadingCtrl: LoadingController, public movies: Movies) {
 
     }
 
@@ -77,8 +74,8 @@ export class AddMoviePage {
                     }
 
                 }
-                for (let i = 0; i < this.movieService.movies.length; i++) {
-                    if (this.movieService.movies[i].Title == movie.Title) {
+                for (let i = 0; i < this.movies.toWatch.length; i++) {
+                    if (this.movies.toWatch[i].Title == movie.Title) {
                         let alert = this.alertCtrl.create({
                             title: 'Movie already listed!',
                             buttons: ['OK']
@@ -87,7 +84,7 @@ export class AddMoviePage {
                         return;
                     }
                 }
-                this.movieService.addMovie(movie);
+                this.movies.addToWatch(movie);
                 this.navCtrl.pop();
             },
             (error) => {

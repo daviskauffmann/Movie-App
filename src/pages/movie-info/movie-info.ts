@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-
 import { NavController, NavParams, ModalController } from 'ionic-angular';
-
 import { EditMoviePage } from '../edit-movie/edit-movie';
-
 import { Movies } from '../../providers/movies';
 
 @Component({
@@ -13,7 +10,7 @@ import { Movies } from '../../providers/movies';
 export class MovieInfoPage {
     movie: any;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public movieService: Movies) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public movies: Movies) {
         this.movie = navParams.get('movie');
     }
 
@@ -25,7 +22,7 @@ export class MovieInfoPage {
     }
 
     removeMovie(): void {
-        this.movieService.removeMovie(this.movie);
+        this.movies.removeToWatch(this.movie);
         this.navCtrl.pop();
     }
 }

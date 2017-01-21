@@ -1,27 +1,26 @@
 import { NgModule, ErrorHandler } from '@angular/core';
-
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-
-import { Storage } from '@ionic/storage';
-
 import { MyApp } from './app.component';
-
-import { HomePage } from '../pages/home/home';
+import { Storage } from '@ionic/storage';
+import { Movies } from '../providers/movies';
+import { TabsPage } from '../pages/tabs/tabs';
+import { ToWatchPage } from '../pages/to-watch/to-watch';
 import { AddMoviePage } from '../pages/add-movie/add-movie';
 import { CreateMoviePage } from '../pages/create-movie/create-movie';
 import { MovieInfoPage } from '../pages/movie-info/movie-info';
 import { EditMoviePage } from '../pages/edit-movie/edit-movie';
-
-import { Movies } from '../providers/movies';
+import { WatchedPage } from '../pages/watched/watched';
 
 @NgModule({
     declarations: [
         MyApp,
-        HomePage,
+		TabsPage,
+        ToWatchPage,
         AddMoviePage,
         CreateMoviePage,
         MovieInfoPage,
-        EditMoviePage
+        EditMoviePage,
+		WatchedPage
     ],
     imports: [
         IonicModule.forRoot(MyApp)
@@ -29,11 +28,13 @@ import { Movies } from '../providers/movies';
     bootstrap: [IonicApp],
     entryComponents: [
         MyApp,
-        HomePage,
+		TabsPage,
+        ToWatchPage,
         AddMoviePage,
         CreateMoviePage,
         MovieInfoPage,
-        EditMoviePage
+        EditMoviePage,
+		WatchedPage
     ],
     providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, Storage, Movies]
 })

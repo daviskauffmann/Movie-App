@@ -1,30 +1,34 @@
 import { Injectable } from '@angular/core';
-
 import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class Movies {
-    public movies: any[] = [];
+    public toWatch: any[] = [];
+	public watched: any[] = [];
 
-    constructor(public storageService: Storage) {
-        this.storageService.get('movies').then((movies) => {
-            if (movies) {
-                this.movies = JSON.parse(movies);
+    constructor(public storage: Storage) {
+        this.load();
+    }
+
+	public load(): void {
+		this.storage.get('toWatch').then((toWatch) => {
+            if (toWatch) {
+                this.toWatch = JSON.parse(toWatch);
             }
         });
+	}
+
+	public save(): void {
+        this.storage.set('toWatch', JSON.stringify(this.toWatch));
     }
 
-    public addMovie(movie: any): void {
-        this.movies.push(movie);
-        this.saveMovies();
+    public addToWatch(movie: any): void {
+        this.toWatch.push(movie);
+        this.save();
     }
 
-    public removeMovie(movie: any): void {
-        this.movies.splice(this.movies.indexOf(movie), 1);
-        this.saveMovies();
-    }
-
-    public saveMovies(): void {
-        this.storageService.set('movies', JSON.stringify(this.movies));
+    public removeToWatch(movie: any): void {
+        this.toWatch.splice(this.toWatch.indexOf(movie), 1);
+        this.save();
     }
 }

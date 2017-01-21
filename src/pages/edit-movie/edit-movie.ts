@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-
 import { NavController, ViewController, AlertController } from 'ionic-angular';
-
 import { Movies } from '../../providers/movies';
 
 @Component({
@@ -23,7 +21,7 @@ export class EditMoviePage {
     actors: string;
     awards: string;
 
-    constructor(public navCtrl: NavController, public viewCtrl: ViewController, public alertCtrl: AlertController, public movieService: Movies) {
+    constructor(public navCtrl: NavController, public viewCtrl: ViewController, public alertCtrl: AlertController, public movies: Movies) {
         this.movie = viewCtrl.data.movie;
         this.title = this.movie.Title;
         this.genre = this.movie.Genre;
@@ -46,7 +44,7 @@ export class EditMoviePage {
     done(): void {
         if (!this.title) {
             let alert = this.alertCtrl.create({
-                title: 'You must enter a title',
+                title: 'Must enter a title',
                 buttons: ['OK']
             });
             alert.present();
@@ -54,7 +52,7 @@ export class EditMoviePage {
         }
         if (!this.genre) {
             let alert = this.alertCtrl.create({
-                title: 'You must enter a genre',
+                title: 'Must enter a genre',
                 buttons: ['OK']
             });
             alert.present();
@@ -72,7 +70,7 @@ export class EditMoviePage {
         this.movie.Writer = this.writer;
         this.movie.Actors = this.actors;
         this.movie.Awards = this.awards;
-        this.movieService.saveMovies();
+        this.movies.save();
         this.viewCtrl.dismiss();
     }
 }
