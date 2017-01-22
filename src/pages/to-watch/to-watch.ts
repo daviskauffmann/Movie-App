@@ -12,6 +12,7 @@ export class ToWatchPage {
   public genreFilter: string = '';
 
   constructor(public navCtrl: NavController, public movies: Movies) {
+    
   }
 
   addMovie() {
@@ -27,7 +28,7 @@ export class ToWatchPage {
     }
     if (this.genreFilter && this.genreFilter.trim() != '') {
       genres = genres.filter((genre) => {
-        return (genre.toLowerCase().indexOf(this.genreFilter.toLowerCase()) > -1);
+        return genre.toLowerCase().indexOf(this.genreFilter.toLowerCase()) > -1;
       });
     }
     return genres.sort();
@@ -57,5 +58,10 @@ export class ToWatchPage {
 
   removeMovie(movie: any): void {
     this.movies.removeToWatch(movie);
+  }
+
+  addWatched(movie: any): void {
+    this.movies.removeToWatch(movie);
+    this.movies.addWatched(movie);
   }
 }

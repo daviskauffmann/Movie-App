@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ViewController, AlertController } from 'ionic-angular';
-import { Movies } from '../../providers/movies';
+import { ViewController, AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-create-movie',
@@ -20,7 +19,7 @@ export class CreateMoviePage {
   actors: string;
   awards: string;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public alertCtrl: AlertController, public movies: Movies) {
+  constructor(public viewCtrl: ViewController, public alertCtrl: AlertController) {
     this.title = viewCtrl.data.title;
   }
 
@@ -59,7 +58,6 @@ export class CreateMoviePage {
       Actors: this.actors,
       Awards: this.awards
     }
-    this.movies.addToWatch(movie);
-    this.viewCtrl.dismiss(true);
+    this.viewCtrl.dismiss(movie);
   }
 }

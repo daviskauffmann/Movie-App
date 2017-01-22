@@ -19,8 +19,9 @@ export class AddMoviePage {
     let modal = this.modalCtrl.create(CreateMoviePage, {
       title: this.title
     });
-    modal.onDidDismiss((success) => {
-      if (success) {
+    modal.onDidDismiss((movie) => {
+      if (movie) {
+        this.movies.addToWatch(movie);
         this.navCtrl.pop();
       }
     });
