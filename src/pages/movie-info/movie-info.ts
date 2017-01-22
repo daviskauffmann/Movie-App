@@ -4,25 +4,25 @@ import { EditMoviePage } from '../edit-movie/edit-movie';
 import { Movies } from '../../providers/movies';
 
 @Component({
-    selector: 'page-movie-info',
-    templateUrl: 'movie-info.html'
+  selector: 'page-movie-info',
+  templateUrl: 'movie-info.html'
 })
 export class MovieInfoPage {
-    movie: any;
+  movie: any;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public movies: Movies) {
-        this.movie = navParams.get('movie');
-    }
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public movies: Movies) {
+    this.movie = navParams.get('movie');
+  }
 
-    editMovie(): void {
-        let modal = this.modalCtrl.create(EditMoviePage, {
-            movie: this.movie,
-        });
-        modal.present();
-    }
+  editMovie(): void {
+    let modal = this.modalCtrl.create(EditMoviePage, {
+      movie: this.movie,
+    });
+    modal.present();
+  }
 
-    removeMovie(): void {
-        this.movies.removeToWatch(this.movie);
-        this.navCtrl.pop();
-    }
+  removeMovie(): void {
+    this.movies.removeToWatch(this.movie);
+    this.navCtrl.pop();
+  }
 }

@@ -1,44 +1,44 @@
 <ion-header>
-    <ion-navbar color="primary">
-        <ion-title>
-            {{movie.Title}}
-        </ion-title>
-        <ion-buttons end>
-            <button ion-button (click)="editMovie()">
-                Edit
-            </button>
-        </ion-buttons>
-    </ion-navbar>
+  <ion-navbar color="primary">
+    <ion-title>
+      {{movie.Title}}
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="editMovie()">
+        Edit
+      </button>
+    </ion-buttons>
+  </ion-navbar>
 </ion-header>
 <ion-content padding>
-    <ion-img width="200" height="200" src="{{movie.Poster}}"></ion-img>
-    <h1>Year</h1>
-    <p>{{movie.Year}}</p>
-    <h1>Rated</h1>
-    <p>{{movie.Rated}}</p>
-    <h1>Runtime</h1>
-    <p>{{movie.Runtime}}</p>
-    <h1>Released</h1>
-    <p>{{movie.Released}}</p>
-    <h1>Country</h1>
-    <p>{{movie.Country}}</p>
-    <h1>Plot</h1>
-    <p>{{movie.Plot}}</p>
-    <h1>Director</h1>
-    <p>{{movie.Director}}</p>
-    <h1>Writer</h1>
-    <p>{{movie.Writer}}</p>
-    <h1>Actors</h1>
-    <p>{{movie.Actors}}</p>
-    <h1>Awards</h1>
-    <p>{{movie.Awards}}</p>
-    <h1>IMDB Rating</h1>
-    <p>{{movie.imdbRating}}</p>
-    <h1>IMDB Votes</h1>
-    <p>{{movie.imdbVotes}}</p>
-    <h1>Metascore</h1>
-    <p>{{movie.Metascore}}</p>
-    <button ion-button full color="danger" (click)="removeMovie()">
+  <ion-img width="200" height="200" src="{{movie.Poster}}"></ion-img>
+  <h1>Year</h1>
+  <p>{{movie.Year}}</p>
+  <h1>Rated</h1>
+  <p>{{movie.Rated}}</p>
+  <h1>Runtime</h1>
+  <p>{{movie.Runtime}}</p>
+  <h1>Released</h1>
+  <p>{{movie.Released}}</p>
+  <h1>Country</h1>
+  <p>{{movie.Country}}</p>
+  <h1>Plot</h1>
+  <p>{{movie.Plot}}</p>
+  <h1>Director</h1>
+  <p>{{movie.Director}}</p>
+  <h1>Writer</h1>
+  <p>{{movie.Writer}}</p>
+  <h1>Actors</h1>
+  <p>{{movie.Actors}}</p>
+  <h1>Awards</h1>
+  <p>{{movie.Awards}}</p>
+  <h1>IMDB Rating</h1>
+  <p>{{movie.imdbRating}}</p>
+  <h1>IMDB Votes</h1>
+  <p>{{movie.imdbVotes}}</p>
+  <h1>Metascore</h1>
+  <p>{{movie.Metascore}}</p>
+  <button ion-button full color="danger" (click)="removeMovie()">
         Remove
     </button>
 </ion-content>

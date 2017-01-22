@@ -12,30 +12,30 @@ import { EditMoviePage } from '../pages/edit-movie/edit-movie';
 import { WatchedPage } from '../pages/watched/watched';
 
 @NgModule({
-    declarations: [
-        MyApp,
-		TabsPage,
-        ToWatchPage,
-        AddMoviePage,
-        CreateMoviePage,
-        MovieInfoPage,
-        EditMoviePage,
-		WatchedPage
-    ],
-    imports: [
-        IonicModule.forRoot(MyApp)
-    ],
-    bootstrap: [IonicApp],
-    entryComponents: [
-        MyApp,
-		TabsPage,
-        ToWatchPage,
-        AddMoviePage,
-        CreateMoviePage,
-        MovieInfoPage,
-        EditMoviePage,
-		WatchedPage
-    ],
-    providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, Storage, Movies]
+  declarations: [
+    MyApp,
+    TabsPage,
+    ToWatchPage,
+    AddMoviePage,
+    CreateMoviePage,
+    MovieInfoPage,
+    EditMoviePage,
+    WatchedPage
+  ],
+  imports: [
+    IonicModule.forRoot(MyApp)
+  ],
+  bootstrap: [IonicApp],
+  entryComponents: [
+    MyApp,
+    TabsPage,
+    ToWatchPage,
+    AddMoviePage,
+    CreateMoviePage,
+    MovieInfoPage,
+    EditMoviePage,
+    WatchedPage
+  ],
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, Storage, Movies]
 })
 export class AppModule { }
