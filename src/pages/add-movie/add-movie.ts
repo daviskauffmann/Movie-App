@@ -73,7 +73,6 @@ export class AddMoviePage {
               alert.present();
               return;
           }
-
         }
         for (let i = 0; i < this.movies.toWatch.length; i++) {
           if (this.movies.toWatch[i].Title == movie.Title) {

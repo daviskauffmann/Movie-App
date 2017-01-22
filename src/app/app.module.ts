@@ -10,6 +10,7 @@ import { CreateMoviePage } from '../pages/create-movie/create-movie';
 import { MovieInfoPage } from '../pages/movie-info/movie-info';
 import { EditMoviePage } from '../pages/edit-movie/edit-movie';
 import { WatchedPage } from '../pages/watched/watched';
+import { AboutPage } from '../pages/about/about';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { WatchedPage } from '../pages/watched/watched';
     CreateMoviePage,
     MovieInfoPage,
     EditMoviePage,
-    WatchedPage
+    WatchedPage,
+    AboutPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -34,7 +36,8 @@ import { WatchedPage } from '../pages/watched/watched';
     CreateMoviePage,
     MovieInfoPage,
     EditMoviePage,
-    WatchedPage
+    WatchedPage,
+    AboutPage
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, Storage, Movies]
 })

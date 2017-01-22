@@ -6,12 +6,9 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <button ion-item>
-                Login
-            </button>
-      <button ion-item>
-                Signup
-            </button>
+      <button *ngFor="let page of pages" menuClose ion-item [class.active]="page == activePage" (click)="openPage(page)">
+        {{ page.title }}
+      </button>
     </ion-list>
   </ion-content>
 </ion-menu>
