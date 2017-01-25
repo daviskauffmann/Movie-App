@@ -8,7 +8,7 @@ import { Movies } from '../../providers/movies';
   templateUrl: 'watched.html'
 })
 export class WatchedPage {
-  public genreFilter: string = '';
+  public genreQuery: string = '';
 
   constructor(public navCtrl: NavController, public movies: Movies) {
     
@@ -21,9 +21,9 @@ export class WatchedPage {
         genres.push(this.movies.watched[i].Genre);
       }
     }
-    if (this.genreFilter && this.genreFilter.trim() != '') {
-      genres = genres.filter((genre) => {
-        return genre.toLowerCase().indexOf(this.genreFilter.toLowerCase()) > -1;
+    if (this.genreQuery && this.genreQuery.trim() != '') {
+			genres = genres.filter((value, index, array) => {
+        return value.toLowerCase().indexOf(this.genreQuery.toLowerCase()) > -1;
       });
     }
     return genres.sort();
@@ -39,8 +39,8 @@ export class WatchedPage {
   }
 
   getMovies(genre: string): any[] {
-    let movies = this.movies.watched.filter((movie) => {
-      return movie.Genre == genre;
+    let movies = this.movies.watched.filter((value, index, array) => {
+      return value.Genre == genre;
     });
     return movies.sort();
   }
@@ -54,4 +54,9 @@ export class WatchedPage {
   removeMovie(movie: any): void {
     this.movies.removeWatched(movie);
   }
+
+	addToWatch(movie: any): void {
+		this.movies.addToWatch(movie);
+		this.movies.removeWatched(movie);
+	}
 }

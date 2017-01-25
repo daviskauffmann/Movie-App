@@ -11,7 +11,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <ion-searchbar placeholder="Search Genres" [(ngModel)]="genreFilter"></ion-searchbar>
+  <ion-searchbar placeholder="Search Genres" [(ngModel)]="genreQuery"></ion-searchbar>
   <ion-list *ngFor="let genre of getGenres()">
     <ion-list-header>
       {{genre}}
@@ -22,7 +22,7 @@
           <img src="{{movie.Poster}}" />
         </ion-thumbnail>
         <h2>
-          {{movie.Title}}
+					{{movie.Title}} ({{movie.Year}})
         </h2>
         <p>
           {{movie.Director}}
@@ -34,6 +34,9 @@
       <ion-item-options>
         <button ion-button color="danger" (click)="removeMovie(movie)">
           Remove
+        </button>
+				<button ion-button (click)="addToWatch(movie)">
+          Rewatch
         </button>
       </ion-item-options>
     </ion-item-sliding>

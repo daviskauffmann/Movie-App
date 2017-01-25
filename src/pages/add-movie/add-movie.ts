@@ -5,95 +5,89 @@ import { CreateMoviePage } from '../create-movie/create-movie';
 import { Movies } from '../../providers/movies';
 
 @Component({
-  selector: 'page-add-movie',
-  templateUrl: 'add-movie.html'
+	selector: 'page-add-movie',
+	templateUrl: 'add-movie.html'
 })
 export class AddMoviePage {
-  title: string;
+	query: string = '';
+	results: any[] = [];
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, public http: Http, public loadingCtrl: LoadingController, public movies: Movies) {
+	constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, public http: Http, public loadingCtrl: LoadingController, public movies: Movies) {
 
-  }
+	}
 
-  createMovie(): void {
-    let modal = this.modalCtrl.create(CreateMoviePage, {
-      title: this.title
-    });
-    modal.onDidDismiss((movie) => {
-      if (movie) {
-        this.movies.addToWatch(movie);
-        this.navCtrl.pop();
-      }
-    });
-    modal.present();
-  }
+	createMovie(): void {
+		let modal = this.modalCtrl.create(CreateMoviePage, {
+			title: this.query
+		});
+		modal.onDidDismiss((movie) => {
+			if (movie) {
+				this.movies.addToWatch(movie);
+				this.navCtrl.pop();
+			}
+		});
+		modal.present();
+	}
 
-  addMovie(): void {
-    if (!this.title) {
-      let alert = this.alertCtrl.create({
-        title: 'Must enter a title.',
-        buttons: ['OK']
-      });
-      alert.present();
-      return;
-    }
-    let loader = this.loadingCtrl.create({
-      content: 'Searching...',
-    });
-    loader.present();
-    let response = this.http.get('http://www.omdbapi.com/?t=' + this.title + '&y=&plot=short&r=json');
-    response.subscribe(
-      (value) => {
-        let movie = value.json();
-        if (movie.Response == 'False') {
-          switch (movie.Error) {
-            case 'Movie not found!':
-              let confirm = this.alertCtrl.create({
-                title: 'Movie not found!',
-                message: 'Do you want to create an custom entry?',
-                buttons: [
-                  {
-                    text: 'No'
-                  },
-                  {
-                    text: 'Yes',
-                    handler: () => {
-                      this.createMovie();
-                    }
-                  }
-                ]
-              });
-              confirm.present();
-              return;
-            default:
-              let alert = this.alertCtrl.create({
-                title: movie.Error,
-                buttons: ['OK']
-              });
-              alert.present();
-              return;
-          }
-        }
-        for (let i = 0; i < this.movies.toWatch.length; i++) {
-          if (this.movies.toWatch[i].Title == movie.Title) {
-            let alert = this.alertCtrl.create({
-              title: 'Movie already listed!',
-              buttons: ['OK']
-            });
-            alert.present();
-            return;
-          }
-        }
-        this.movies.addToWatch(movie);
-        this.navCtrl.pop();
-      },
-      (error) => {
-        loader.dismiss();
-        console.log(error);
-      },
-      () => {
-        loader.dismiss();
-      }
-    );
-  }
+	searchMovies(): void {
+		if (this.query) {
+			let response = this.http.get('http://www.omdbapi.com/?s=' + this.query + '&type=movie&r=json');
+			response.subscribe((value) => {
+				this.results = value.json().Search;
+				console.log(this.results);
+			}, (error) => {
+				console.log(error);
+			}, () => {
+
+			});
+		}
+	}
+
+	addMovie(result: any): void {
+		let loader = this.loadingCtrl.create({
+			content: 'Adding...',
+		});
+		loader.present();
+		let response = this.http.get('http://www.omdbapi.com/?t=' + result.Title + '&plot=full&r=json');
+		response.subscribe((value) => {
+			let movie = value.json();
+			if (movie.Response == 'False') {
+				let alert = this.alertCtrl.create({
+					title: movie.Error,
+					buttons: ['OK']
+				});
+				alert.present();
+				return;
+			}
+			let listed = false;
+			for (let i = 0; i < this.movies.toWatch.length; i++) {
+				if (this.movies.toWatch[i].Title == movie.Title) {
+					listed = true;
+				}
+			}
+			for (let i = 0; i < this.movies.watched.length; i++) {
+				if (this.movies.watched[i].Title == movie.Title) {
+					listed = true;
+				}
+			}
+			if (listed) {
+				let alert = this.alertCtrl.create({
+						title: 'Movie already listed!',
+						buttons: ['OK']
+					});
+					alert.present();
+					return;
+			}
+			this.movies.addToWatch(movie);
+			this.navCtrl.pop();
+		},
+			(error) => {
+				loader.dismiss();
+				console.log(error);
+			},
+			() => {
+				loader.dismiss();
+			}
+		);
+	}
 }

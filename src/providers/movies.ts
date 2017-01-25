@@ -11,14 +11,14 @@ export class Movies {
   }
 
   public load(): void {
-    this.storage.get('toWatch').then((toWatch) => {
-      if (toWatch) {
-        this.toWatch = JSON.parse(toWatch);
+    this.storage.get('toWatch').then((value) => {
+      if (value) {
+        this.toWatch = JSON.parse(value);
       }
     });
-    this.storage.get('watched').then((watched) => {
-      if (watched) {
-        this.watched = JSON.parse(watched);
+    this.storage.get('watched').then((value) => {
+      if (value) {
+        this.watched = JSON.parse(value);
       }
     });
   }
