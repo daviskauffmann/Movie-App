@@ -8,35 +8,26 @@ import { Movies } from '../../providers/movies';
   templateUrl: 'watched.html'
 })
 export class WatchedPage {
-  public genreQuery: string = '';
+	genreQuery: string = '';
 
   constructor(public navCtrl: NavController, public movies: Movies) {
-    
+    this.movies.loadWatched();
   }
 
   getGenres(): string[] {
     let genres: string[] = [];
     for (let i = 0; i < this.movies.watched.length; i++) {
-      if (!this.arrayContains(genres, this.movies.watched[i].Genre)) {
-        genres.push(this.movies.watched[i].Genre);
-      }
+      if (genres.indexOf(this.movies.watched[i].Genre) < 0) {
+				genres.push(this.movies.watched[i].Genre);
+			}
     }
     if (this.genreQuery && this.genreQuery.trim() != '') {
-			genres = genres.filter((value, index, array) => {
+      genres = genres.filter((value, index, array) => {
         return value.toLowerCase().indexOf(this.genreQuery.toLowerCase()) > -1;
       });
     }
     return genres.sort();
-  }
-
-  arrayContains(array: any[], element: any): boolean {
-    for (let i = 0; i < array.length; i++) {
-      if (array[i] == element) {
-        return true;
-      }
-    }
-    return false;
-  }
+	}
 
   getMovies(genre: string): any[] {
     let movies = this.movies.watched.filter((value, index, array) => {

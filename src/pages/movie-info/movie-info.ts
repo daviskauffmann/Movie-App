@@ -11,7 +11,8 @@ export class MovieInfoPage {
   movie: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public movies: Movies) {
-    this.movie = navParams.get('movie');
+    this.movie = this.navParams.get('movie');
+		console.log(this.movie);
   }
 
   editMovie(): void {

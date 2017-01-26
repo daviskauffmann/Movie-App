@@ -45,7 +45,7 @@ export class EditMoviePage {
     if (!this.title) {
       let alert = this.alertCtrl.create({
         title: 'Must enter a title',
-        buttons: ['OK']
+        buttons: ['Ok']
       });
       alert.present();
       return;
@@ -53,7 +53,7 @@ export class EditMoviePage {
     if (!this.genre) {
       let alert = this.alertCtrl.create({
         title: 'Must enter a genre',
-        buttons: ['OK']
+        buttons: ['Ok']
       });
       alert.present();
       return;

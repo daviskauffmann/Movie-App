@@ -13,7 +13,7 @@ export class AddMoviePage {
 	results: any[] = [];
 
 	constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, public http: Http, public loadingCtrl: LoadingController, public movies: Movies) {
-
+		
 	}
 
 	createMovie(): void {
@@ -48,13 +48,13 @@ export class AddMoviePage {
 			content: 'Adding...',
 		});
 		loader.present();
-		let response = this.http.get('http://www.omdbapi.com/?t=' + result.Title + '&plot=full&r=json');
+		let response = this.http.get('http://www.omdbapi.com/?t=' + result.Title + '&plot=short&r=json');
 		response.subscribe((value) => {
 			let movie = value.json();
 			if (movie.Response == 'False') {
 				let alert = this.alertCtrl.create({
 					title: movie.Error,
-					buttons: ['OK']
+					buttons: ['Ok']
 				});
 				alert.present();
 				return;
@@ -73,7 +73,7 @@ export class AddMoviePage {
 			if (listed) {
 				let alert = this.alertCtrl.create({
 						title: 'Movie already listed!',
-						buttons: ['OK']
+						buttons: ['Ok']
 					});
 					alert.present();
 					return;

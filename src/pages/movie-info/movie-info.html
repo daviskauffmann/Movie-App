@@ -11,7 +11,9 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <ion-img width="200" height="200" src="{{movie.Poster}}"></ion-img>
+	<a href="http://www.imdb.com/title/{{movie.imdbID}}/" target="_blank">
+  	<ion-img width="200" height="200" src="{{movie.Poster}}"></ion-img>
+	</a>
   <h1>Year</h1>
   <p>{{movie.Year}}</p>
   <h1>Rated</h1>

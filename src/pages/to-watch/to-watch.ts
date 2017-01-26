@@ -9,10 +9,10 @@ import { Movies } from '../../providers/movies';
   templateUrl: 'to-watch.html'
 })
 export class ToWatchPage {
-  public genreQuery: string = '';
+	genreQuery: string = '';
 
   constructor(public navCtrl: NavController, public movies: Movies) {
-    
+		this.movies.loadToWatch();
   }
 
   addMovie() {
@@ -22,25 +22,16 @@ export class ToWatchPage {
   getGenres(): string[] {
     let genres: string[] = [];
     for (let i = 0; i < this.movies.toWatch.length; i++) {
-      if (!this.arrayContains(genres, this.movies.toWatch[i].Genre)) {
-        genres.push(this.movies.toWatch[i].Genre);
-      }
-    }
+			if (genres.indexOf(this.movies.toWatch[i].Genre) < 0) {
+				genres.push(this.movies.toWatch[i].Genre);
+			}
+		}
     if (this.genreQuery && this.genreQuery.trim() != '') {
       genres = genres.filter((value, index, array) => {
         return value.toLowerCase().indexOf(this.genreQuery.toLowerCase()) > -1;
       });
     }
     return genres.sort();
-  }
-
-  arrayContains(array: any[], element: any): boolean {
-    for (let i = 0; i < array.length; i++) {
-      if (array[i] == element) {
-        return true;
-      }
-    }
-    return false;
   }
 
   getMovies(genre: string): any[] {
