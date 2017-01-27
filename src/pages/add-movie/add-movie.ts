@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
 import { NavController, ModalController, AlertController, LoadingController } from 'ionic-angular';
-import { CreateMoviePage } from '../create-movie/create-movie';
 import { Movies } from '../../providers/movies';
 
 @Component({
@@ -14,19 +13,6 @@ export class AddMoviePage {
 
 	constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, public http: Http, public loadingCtrl: LoadingController, public movies: Movies) {
 		
-	}
-
-	createMovie(): void {
-		let modal = this.modalCtrl.create(CreateMoviePage, {
-			title: this.query
-		});
-		modal.onDidDismiss((movie) => {
-			if (movie) {
-				this.movies.addToWatch(movie);
-				this.navCtrl.pop();
-			}
-		});
-		modal.present();
 	}
 
 	searchMovies(): void {

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
-import { EditMoviePage } from '../edit-movie/edit-movie';
 import { Movies } from '../../providers/movies';
 
 @Component({
@@ -14,14 +13,6 @@ export class MovieInfoPage {
     this.movie = this.navParams.get('movie');
 		console.log(this.movie);
   }
-
-  editMovie(): void {
-    let modal = this.modalCtrl.create(EditMoviePage, {
-      movie: this.movie,
-    });
-    modal.present();
-  }
-
   removeMovie(): void {
     this.movies.removeToWatch(this.movie);
     this.navCtrl.pop();

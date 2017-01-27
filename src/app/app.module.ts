@@ -6,9 +6,8 @@ import { Movies } from '../providers/movies';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ToWatchPage } from '../pages/to-watch/to-watch';
 import { AddMoviePage } from '../pages/add-movie/add-movie';
-import { CreateMoviePage } from '../pages/create-movie/create-movie';
 import { MovieInfoPage } from '../pages/movie-info/movie-info';
-import { EditMoviePage } from '../pages/edit-movie/edit-movie';
+import { RateMoviePage } from '../pages/rate-movie/rate-movie';
 import { WatchedPage } from '../pages/watched/watched';
 import { AboutPage } from '../pages/about/about';
 
@@ -18,9 +17,8 @@ import { AboutPage } from '../pages/about/about';
     TabsPage,
     ToWatchPage,
     AddMoviePage,
-    CreateMoviePage,
     MovieInfoPage,
-    EditMoviePage,
+		RateMoviePage,
     WatchedPage,
     AboutPage
   ],
@@ -33,9 +31,8 @@ import { AboutPage } from '../pages/about/about';
     TabsPage,
     ToWatchPage,
     AddMoviePage,
-    CreateMoviePage,
     MovieInfoPage,
-    EditMoviePage,
+		RateMoviePage,
     WatchedPage,
     AboutPage
   ],

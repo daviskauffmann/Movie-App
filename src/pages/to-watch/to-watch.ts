@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController, AlertController } from 'ionic-angular';
 import { AddMoviePage } from '../add-movie/add-movie';
 import { MovieInfoPage } from '../movie-info/movie-info';
+import { RateMoviePage } from '../rate-movie/rate-movie';
 import { Movies } from '../../providers/movies';
 
 @Component({
@@ -11,7 +12,7 @@ import { Movies } from '../../providers/movies';
 export class ToWatchPage {
 	genreQuery: string = '';
 
-  constructor(public navCtrl: NavController, public movies: Movies) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, public movies: Movies) {
 		this.movies.loadToWatch();
   }
 
@@ -52,7 +53,27 @@ export class ToWatchPage {
   }
 
   addWatched(movie: any): void {
-    this.movies.removeToWatch(movie);
-    this.movies.addWatched(movie);
+		let alert = this.alertCtrl.create({
+			title: 'Would you like to rate the movie?',
+			buttons: [
+				{
+					text: 'No'
+				},
+				{
+					text: 'Yes',
+					handler: () => {
+						let modal = this.modalCtrl.create(RateMoviePage, {
+							movie: movie
+						});
+						modal.present();
+					}
+				}
+			]
+		});
+		alert.onDidDismiss(() => {
+			this.movies.removeToWatch(movie);
+    	this.movies.addWatched(movie);
+		});
+		alert.present();
   }
 }
