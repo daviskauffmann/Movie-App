@@ -1,12 +1,14 @@
 <ion-header>
 	<ion-navbar color="primary">
 		<ion-title>
-			Add Movie
+			Search
 		</ion-title>
 	</ion-navbar>
+	<ion-toolbar>
+		<ion-searchbar placeholder="Search..." [(ngModel)]="query" (ionInput)="searchMovies()"></ion-searchbar>
+	</ion-toolbar>
 </ion-header>
-<ion-content padding>
-	<ion-searchbar placeholder="Search..." [(ngModel)]="query" (ionInput)="searchMovies()"></ion-searchbar>
+<ion-content>
 	<ion-list>
 		<ion-item text-wrap *ngFor="let result of results" (click)="addMovie(result)">
 			<ion-thumbnail item-left>

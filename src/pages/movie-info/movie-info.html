@@ -3,6 +3,11 @@
     <ion-title>
       {{movie.Title}}
     </ion-title>
+		<ion-buttons end>
+			<button ion-button icon-only (click)="more()">
+        <ion-icon name="more"></ion-icon>
+      </button>
+		</ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content padding>
@@ -35,7 +40,4 @@
   <p>{{movie.imdbVotes}}</p>
   <h1>Metascore</h1>
   <p>{{movie.Metascore}}</p>
-  <button ion-button full color="danger" (click)="removeMovie()">
-        Remove
-    </button>
 </ion-content>

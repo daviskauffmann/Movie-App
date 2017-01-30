@@ -1,15 +1,1 @@
-<ion-menu [content]="content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content>
-    <ion-list>
-      <ion-item *ngFor="let page of pages" ion-item menuClose [class.active]="page == activePage" (click)="openPage(page)">
-        {{page.title}}
-      </ion-item>
-    </ion-list>
-  </ion-content>
-</ion-menu>
 <ion-nav #content [root]="rootPage"></ion-nav>

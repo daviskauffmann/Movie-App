@@ -1,0 +1,37 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<ion-title>
+			{{list.name}}
+		</ion-title>
+	</ion-navbar>
+</ion-header>
+<ion-content padding>
+	{{list.description}}
+	<hr>
+	<ion-list *ngFor="let genre of movies.getGenres(list, null)">
+		<ion-list-header>
+			{{genre}}
+		</ion-list-header>
+		<ion-item-sliding *ngFor="let movie of movies.getMovies(list, genre)">
+			<ion-item (click)="movieInfo(movie)">
+				<ion-thumbnail item-left>
+					<img src="{{movie.Poster}}" />
+				</ion-thumbnail>
+				<h2>
+					{{movie.Title}} ({{movie.Year}})
+				</h2>
+				<p>
+					{{movie.Director}}
+				</p>
+				<p>
+					<ion-icon small name="star">&nbsp;{{movie.imdbRating}}</ion-icon>
+				</p>
+			</ion-item>
+			<ion-item-options>
+				<button ion-button color="danger" (click)="movies.removeMovie(movie)">
+          Remove
+        </button>
+			</ion-item-options>
+		</ion-item-sliding>
+	</ion-list>
+</ion-content>

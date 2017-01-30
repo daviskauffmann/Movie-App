@@ -1,26 +1,24 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { MyApp } from './app.component';
 import { Storage } from '@ionic/storage';
-import { Movies } from '../providers/movies';
+import { MyApp } from './app.component';
 import { TabsPage } from '../pages/tabs/tabs';
-import { ToWatchPage } from '../pages/to-watch/to-watch';
-import { AddMoviePage } from '../pages/add-movie/add-movie';
+import { SearchPage } from '../pages/search/search';
+import { HomePage } from '../pages/home/home';
+import { ListPage } from '../pages/list/list';
+import { AddListPage } from '../pages/add-list/add-list';
 import { MovieInfoPage } from '../pages/movie-info/movie-info';
-import { RateMoviePage } from '../pages/rate-movie/rate-movie';
-import { WatchedPage } from '../pages/watched/watched';
-import { AboutPage } from '../pages/about/about';
+import { Movies } from '../providers/movies';
 
 @NgModule({
   declarations: [
     MyApp,
-    TabsPage,
-    ToWatchPage,
-    AddMoviePage,
-    MovieInfoPage,
-		RateMoviePage,
-    WatchedPage,
-    AboutPage
+		TabsPage,
+		SearchPage,
+		HomePage,
+		ListPage,
+		AddListPage,
+    MovieInfoPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -28,13 +26,12 @@ import { AboutPage } from '../pages/about/about';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    TabsPage,
-    ToWatchPage,
-    AddMoviePage,
-    MovieInfoPage,
-		RateMoviePage,
-    WatchedPage,
-    AboutPage
+		TabsPage,
+		SearchPage,
+		HomePage,
+		ListPage,
+		AddListPage,
+    MovieInfoPage
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, Storage, Movies]
 })

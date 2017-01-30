@@ -4,15 +4,15 @@ import { NavController, ModalController, AlertController, LoadingController } fr
 import { Movies } from '../../providers/movies';
 
 @Component({
-	selector: 'page-add-movie',
-	templateUrl: 'add-movie.html'
+	selector: 'page-search',
+	templateUrl: 'search.html'
 })
-export class AddMoviePage {
+export class SearchPage {
 	query: string = '';
 	results: any[] = [];
 
-	constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, public http: Http, public loadingCtrl: LoadingController, public movies: Movies) {
-		
+	constructor(public navCtrl: NavController, public alertCtrl: AlertController, public modalCtrl: ModalController, public http: Http, public loadingCtrl: LoadingController, public movies: Movies) {
+
 	}
 
 	searchMovies(): void {
@@ -45,27 +45,29 @@ export class AddMoviePage {
 				alert.present();
 				return;
 			}
-			let listed = false;
-			for (let i = 0; i < this.movies.toWatch.length; i++) {
-				if (this.movies.toWatch[i].Title == movie.Title) {
-					listed = true;
-				}
-			}
-			for (let i = 0; i < this.movies.watched.length; i++) {
-				if (this.movies.watched[i].Title == movie.Title) {
-					listed = true;
-				}
-			}
-			if (listed) {
-				let alert = this.alertCtrl.create({
+			for (let i = 0; i < this.movies.movies.length; i++) {
+				if (this.movies.movies[i].Title == movie.Title) {
+					let alert = this.alertCtrl.create({
 						title: 'Movie already listed!',
 						buttons: ['Ok']
 					});
 					alert.present();
 					return;
+				}
 			}
-			this.movies.addToWatch(movie);
-			this.navCtrl.pop();
+			movie.ListNames = [];
+			console.log(movie);
+			this.movies.addMovie(movie);
+			/*let modal = this.modalCtrl.create(ListsPage, {
+				selecting: true,
+				selections: []
+			});
+			modal.onDidDismiss((data) => {
+				movie.ListNames = data;
+				console.log(movie);
+				this.movies.addMovie(movie);
+			});
+			modal.present();*/
 		},
 			(error) => {
 				loader.dismiss();
@@ -73,7 +75,6 @@ export class AddMoviePage {
 			},
 			() => {
 				loader.dismiss();
-			}
-		);
+			});
 	}
 }

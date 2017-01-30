@@ -1,0 +1,22 @@
+import { Component } from '@angular/core';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { MovieInfoPage } from '../movie-info/movie-info';
+import { Movies } from '../../providers/movies';
+
+@Component({
+	selector: 'page-list',
+	templateUrl: 'list.html'
+})
+export class ListPage {
+	list: any;
+
+	constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public movies: Movies) {
+		this.list = navParams.data.list;
+	}
+
+	movieInfo(movie: any): void {
+		this.navCtrl.push(MovieInfoPage, {
+			movie: movie
+		});
+	}
+}
