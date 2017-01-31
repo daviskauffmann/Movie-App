@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ViewController, ModalController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import { AddListPage } from '../add-list/add-list';
 import { ListPage } from '../list/list';
 import { MovieInfoPage } from '../movie-info/movie-info';
@@ -10,15 +10,14 @@ import { Movies } from '../../providers/movies';
 	templateUrl: 'home.html'
 })
 export class HomePage {
-	view: string = 'all';
+	segment: string = 'all';
 
-	constructor(public navCtrl: NavController, public modalCtrl: ModalController, public viewCtrl: ViewController, public movies: Movies) {
+	constructor(public navCtrl: NavController, public modalCtrl: ModalController, public movies: Movies) {
 
 	}
 	
 	addList(): void {
-		let modal = this.modalCtrl.create(AddListPage);
-		modal.present();
+		this.modalCtrl.create(AddListPage).present();
 	}
 
 	viewList(list: any): void {
@@ -27,7 +26,7 @@ export class HomePage {
 		});
 	}
 
-	movieInfo(movie: any): void {
+	viewMovie(movie: any): void {
 		this.navCtrl.push(MovieInfoPage, {
 			movie: movie
 		});

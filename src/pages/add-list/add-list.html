@@ -10,7 +10,7 @@
 		</ion-buttons>
 	</ion-navbar>
 </ion-header>
-<ion-content padding>
+<ion-content>
 	<ion-list>
 		<ion-item>
 			<ion-label>Name</ion-label>
@@ -20,8 +20,10 @@
 			<ion-label>Description</ion-label>
 			<ion-textarea [(ngModel)]="description"></ion-textarea>
 		</ion-item>
+		<div padding>
+			<button ion-button full (click)="add()">
+				Add
+			</button>
+		</div>
 	</ion-list>
-	<button ion-button full (click)="add()">
-		Add
-	</button>
 </ion-content>

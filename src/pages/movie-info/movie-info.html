@@ -1,43 +1,35 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>
-      {{movie.Title}}
-    </ion-title>
-		<ion-buttons end>
-			<button ion-button icon-only (click)="more()">
-        <ion-icon name="more"></ion-icon>
-      </button>
-		</ion-buttons>
-  </ion-navbar>
+	<ion-navbar color="primary">
+		<ion-title>
+			{{movie.Title}}
+		</ion-title>
+	</ion-navbar>
+	<ion-toolbar padding>
+		<h1>{{movie.Title}} <small>({{movie.Year}})</small></h1>
+		<p>{{movie.Rated}} | {{movie.Runtime}} | {{movie.Genre}}</p>
+		<button ion-button>
+			Add to Top 10
+		</button>
+		<button ion-button (click)="selectList()">
+			Add to List
+		</button>
+	</ion-toolbar>
 </ion-header>
-<ion-content padding>
-	<a href="http://www.imdb.com/title/{{movie.imdbID}}/" target="_blank">
-  	<ion-img width="200" height="200" src="{{movie.Poster}}"></ion-img>
-	</a>
-  <h1>Year</h1>
-  <p>{{movie.Year}}</p>
-  <h1>Rated</h1>
-  <p>{{movie.Rated}}</p>
-  <h1>Runtime</h1>
-  <p>{{movie.Runtime}}</p>
-  <h1>Released</h1>
-  <p>{{movie.Released}}</p>
-  <h1>Country</h1>
-  <p>{{movie.Country}}</p>
-  <h1>Plot</h1>
-  <p>{{movie.Plot}}</p>
-  <h1>Director</h1>
-  <p>{{movie.Director}}</p>
-  <h1>Writer</h1>
-  <p>{{movie.Writer}}</p>
-  <h1>Actors</h1>
-  <p>{{movie.Actors}}</p>
-  <h1>Awards</h1>
-  <p>{{movie.Awards}}</p>
-  <h1>IMDB Rating</h1>
-  <p>{{movie.imdbRating}}</p>
-  <h1>IMDB Votes</h1>
-  <p>{{movie.imdbVotes}}</p>
-  <h1>Metascore</h1>
-  <p>{{movie.Metascore}}</p>
+<ion-content>
+	<ion-card>
+		<!--img src="{{movie.Poster}}" /-->
+		<ion-card-content>
+			<p>{{movie.Plot}}</p>
+		</ion-card-content>
+		<ion-item>
+			<ion-icon name='star' item-left></ion-icon>
+			IMDB Rating
+			<ion-badge item-right>{{movie.imdbRating}}</ion-badge>
+		</ion-item>
+		<ion-item>
+			<ion-icon name='people' item-left></ion-icon>
+			IMDB Votes
+			<ion-badge item-right>{{movie.imdbVotes}}</ion-badge>
+		</ion-item>
+	</ion-card>
 </ion-content>

@@ -6,6 +6,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { SearchPage } from '../pages/search/search';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { SelectListPage } from '../pages/select-list/select-list';
 import { AddListPage } from '../pages/add-list/add-list';
 import { MovieInfoPage } from '../pages/movie-info/movie-info';
 import { Movies } from '../providers/movies';
@@ -17,6 +18,7 @@ import { Movies } from '../providers/movies';
 		SearchPage,
 		HomePage,
 		ListPage,
+		SelectListPage,
 		AddListPage,
     MovieInfoPage
   ],
@@ -30,6 +32,7 @@ import { Movies } from '../providers/movies';
 		SearchPage,
 		HomePage,
 		ListPage,
+		SelectListPage,
 		AddListPage,
     MovieInfoPage
   ],

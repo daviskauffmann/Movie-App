@@ -19,7 +19,16 @@ export class AddListPage {
 	}
 
 	add(): void {
-		this.movies.lists.push({
+		for (let i = 0; i < this.movies.getLists().length; i++) {
+			if (this.movies.getLists()[i].name == this.name) {
+				this.alertCtrl.create({
+					title: 'There is already a list with the same name',
+					buttons: ['Ok']
+				}).present();
+				return;
+			}
+		}
+		this.movies.addList({
 			name: this.name,
 			description: this.description
 		});

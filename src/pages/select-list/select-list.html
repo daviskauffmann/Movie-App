@@ -1,0 +1,38 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<ion-title>
+			Lists
+		</ion-title>
+		<ion-buttons start>
+			<button ion-button (click)="cancel()">
+        Cancel
+      </button>
+		</ion-buttons>
+		<ion-buttons end>
+			<button ion-button (click)="done()">
+        Done
+      </button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+<ion-content>
+	<ion-list>
+		<ion-item (click)="addList()">
+			<ion-icon item-right name="add"></ion-icon>
+			Create New List
+		</ion-item>
+		<ion-item-sliding *ngFor="let list of movies.getLists()">
+			<ion-item>
+				<ion-label>
+					{{list.name}}
+				</ion-label>
+				<ion-checkbox (click)="select(list)" item-right checked="{{lists.indexOf(list) > -1}}"></ion-checkbox>
+			</ion-item>
+			<ion-item-options>
+				<button ion-button color="danger" (click)="movies.removeList(list)">
+          Remove
+        </button>
+			</ion-item-options>
+		</ion-item-sliding>
+	</ion-list>
+</ion-content>

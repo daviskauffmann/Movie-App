@@ -3,8 +3,8 @@ import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class Movies {
-	movies: any[] = [];
-	lists: any[] = [];
+	private movies: any[] = [];
+	private lists: any[] = [];
 
 	constructor(public storage: Storage) {
 		//storage.clear();
@@ -16,31 +16,27 @@ export class Movies {
 			name: 'Watched',
 			description: 'Movies you have watched'
 		});
-		this.loadMovies().then(() => {
-			console.log(this.movies);
-		});
-		this.loadLists().then(() => {
-			console.log(this.lists);
-		});
+		this.load();
 	}
 
 	save(): void {
 		this.storage.set('movies', JSON.stringify(this.movies));
+		console.log('movies saved');
 		this.storage.set('lists', JSON.stringify(this.lists));
+		console.log('lists saved');
 	}
 
-	loadMovies(): Promise<any> {
-		return this.storage.get('movies').then((value) => {
+	load(): void {
+		this.storage.get('movies').then((value) => {
 			if (value) {
 				this.movies = JSON.parse(value);
+				console.log(this.movies);
 			}
 		});
-	}
-
-	loadLists(): Promise<any> {
-		return this.storage.get('lists').then((value) => {
+		this.storage.get('lists').then((value) => {
 			if (value) {
 				this.lists = JSON.parse(value);
+				console.log(this.lists);
 			}
 		});
 	}
@@ -55,21 +51,33 @@ export class Movies {
 		this.save();
 	}
 
-	addList(list: any): void {
-		this.lists.push(list);
-		this.save();
-	}
-
-	removeList(list: any): void {
-		this.lists.splice(this.lists.indexOf(list), 1);
+	getMovies(list?: any, genre?: string, filter?: string): any[] {
+		let movies: any[] = [];
 		for (let i = 0; i < this.movies.length; i++) {
-			for (let j = 0; j < this.movies[i].ListNames.length; j++) {
-				if (this.movies[i].ListNames[j] == list.name) {
-					this.movies[i].ListNames.splice(j, 1);
-				}
-			}
+			movies.push(this.movies[i]);
 		}
-		this.save();
+		if (list) {
+			movies = movies.filter((value, index, array) => {
+				for (let i = 0; i < value.listNames.length; i++) {
+					if (value.listNames[i] == list.name) {
+						return true;
+					}
+				}
+			});
+		}
+		if (genre) {
+			movies = movies.filter((value, index, array) => {
+				return value.Genre == genre;
+			});
+		}
+		if (filter && filter.trim() != '') {
+			movies = movies.filter((value, index, array) => {
+				return value.toLowerCase().indexOf(filter.toLowerCase()) > -1;
+			});
+		}
+		return movies.sort((a, b) => {
+			return a.Title.toLowerCase() < b.Title.toLowerCase() ? -1 : a.Title.toLowerCase() > b.Title.toLowerCase() ? 1 : 0;
+		});
 	}
 
 	getGenres(list?: any, filter?: string): string[] {
@@ -88,25 +96,21 @@ export class Movies {
 		return genres.sort();
 	}
 
-	getMovies(list?: any, genre?: string): any[] {
-		let movies: any[] = this.movies;
-		if (list) {
-			movies = movies.filter((value, index, array) => {
-				for (let i = 0; i < value.ListNames.length; i++) {
-					if (value.ListNames[i] == list.name) {
-						return true;
-					}
+	addList(list: any): void {
+		this.lists.push(list);
+		this.save();
+	}
+
+	removeList(list: any): void {
+		this.lists.splice(this.lists.indexOf(list), 1);
+		for (let i = 0; i < this.movies.length; i++) {
+			for (let j = 0; j < this.movies[i].listNames.length; j++) {
+				if (this.movies[i].listNames[j] == list.name) {
+					this.movies[i].listNames.splice(j, 1);
 				}
-			});
+			}
 		}
-		if (genre) {
-			movies = movies.filter((value, index, array) => {
-				return value.Genre == genre;
-			});
-		}
-		return movies.sort((a, b) => {
-			return a.Title.toLowerCase() < b.Title.toLowerCase() ? -1 : a.Title.toLowerCase() > b.Title.toLowerCase() ? 1 : 0;
-		});
+		this.save();
 	}
 
 	getLists(filter?: string): any[] {

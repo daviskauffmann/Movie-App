@@ -3,14 +3,9 @@
 		<ion-title>
 			Home
 		</ion-title>
-		<ion-buttons end>
-			<button ion-button icon-only (click)="addList()">
-        <ion-icon name="add"></ion-icon>
-      </button>
-		</ion-buttons>
 	</ion-navbar>
 	<ion-toolbar>
-		<ion-segment [(ngModel)]="view">
+		<ion-segment [(ngModel)]="segment">
 			<ion-segment-button value="all">
 				All
 			</ion-segment-button>
@@ -21,28 +16,14 @@
 	</ion-toolbar>
 </ion-header>
 <ion-content>
-	<div [ngSwitch]="view">
-		<div *ngSwitchCase="'lists'">
-			<ion-list>
-				<ion-item-sliding *ngFor="let list of movies.getLists()">
-					<button ion-item (click)="viewList(list)">
-						{{list.name}}
-					</button>
-					<ion-item-options>
-						<button ion-button color="danger" (click)="movies.removeList(list)">
-          		Remove
-        		</button>
-					</ion-item-options>
-				</ion-item-sliding>
-			</ion-list>
-		</div>
+	<div [ngSwitch]="segment">
 		<div *ngSwitchCase="'all'">
 			<ion-list *ngFor="let genre of movies.getGenres(null, null)">
 				<ion-list-header>
 					{{genre}}
 				</ion-list-header>
-				<ion-item-sliding *ngFor="let movie of movies.getMovies(null, genre)">
-					<ion-item (click)="movieInfo(movie)">
+				<ion-item-sliding *ngFor="let movie of movies.getMovies(null, genre, null)">
+					<ion-item text-wrap (click)="viewMovie(movie)">
 						<ion-thumbnail item-left>
 							<img src="{{movie.Poster}}" />
 						</ion-thumbnail>
@@ -58,8 +39,26 @@
 					</ion-item>
 					<ion-item-options>
 						<button ion-button color="danger" (click)="movies.removeMovie(movie)">
-          Remove
-        </button>
+          		Remove
+        		</button>
+					</ion-item-options>
+				</ion-item-sliding>
+			</ion-list>
+		</div>
+		<div *ngSwitchCase="'lists'">
+			<ion-list>
+				<ion-item (click)="addList()">
+					<ion-icon item-right name="add"></ion-icon>
+					Create New List
+				</ion-item>
+				<ion-item-sliding *ngFor="let list of movies.getLists(null)">
+					<button ion-item (click)="viewList(list)">
+						{{list.name}}
+					</button>
+					<ion-item-options>
+						<button ion-button color="danger" (click)="movies.removeList(list)">
+          		Remove
+        		</button>
 					</ion-item-options>
 				</ion-item-sliding>
 			</ion-list>

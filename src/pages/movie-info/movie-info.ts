@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, ActionSheetController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { SelectListPage } from '../select-list/select-list';
 import { Movies } from '../../providers/movies';
 
 @Component({
@@ -9,61 +10,30 @@ import { Movies } from '../../providers/movies';
 export class MovieInfoPage {
 	movie: any;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, public movies: Movies) {
-		this.movie = this.navParams.get('movie');
+	constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public movies: Movies) {
+		this.movie = this.navParams.data.movie;
 		console.log(this.movie);
 	}
 
-	more(): void {
-		let actionSheet = this.actionSheetCtrl.create({
-			title: this.movie.Title,
-			buttons: [
-				{
-					text: 'Delete',
-					role: 'destructive',
-					handler: () => {
-						this.movies.removeMovie(this.movie);
-						this.navCtrl.pop();
-					}
-				},
-				{
-					text: 'Lists',
-					handler: () => {
-						/*let selections = [];
-						for (let i = 0; i < this.movie.ListNames.length; i++) {
-							for (let j = 0; j < this.movies.lists.length; j++) {
-								if (this.movie.ListNames[i] == this.movies.lists[j].name) {
-									selections.push(this.movies.lists[j]);
-								}
-							}
-						}
-						let modal = this.modalCtrl.create(ListsPage, {
-							selecting: true,
-							selections: selections
-						});
-						modal.onDidDismiss((data) => {
-							this.movie.ListNames = data;
-							console.log(this.movie);
-							this.movies.save();
-						});
-						modal.present();*/
-					}
-				},
-				{
-					text: 'Top 10',
-					handler: () => {
-
-					}
-				},
-				{
-					text: 'Cancel',
-					role: 'cancel',
-					handler: () => {
-
-					}
-				}
-			]
+	selectList(): void {
+		let lists: any[] = [];
+		for (let i = 0; i < this.movies.getLists().length; i++) {
+			if (this.movie.listNames.indexOf(this.movies.getLists()[i].name) > -1) {
+				lists.push(this.movies.getLists()[i]);
+			}
+		}
+		let modal = this.modalCtrl.create(SelectListPage, {
+			lists: lists
 		});
-		actionSheet.present();
+		modal.onDidDismiss((lists) => {
+			if (lists) {
+				this.movie.listNames = [];
+				for (let i = 0; i < lists.length; i++) {
+					this.movie.listNames.push(lists[i].name);
+				}
+				this.movies.save();
+			}
+		});
+		modal.present();
 	}
 }
