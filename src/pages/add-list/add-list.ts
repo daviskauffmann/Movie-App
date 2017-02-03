@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ViewController, AlertController } from 'ionic-angular';
-import { Movies } from '../../providers/movies';
+
+import { Lists } from '../../providers/lists';
 
 @Component({
 	selector: 'page-add-list',
@@ -10,7 +11,9 @@ export class AddListPage {
 	name: string = '';
 	description: string = '';
 
-	constructor(public viewCtrl: ViewController, public alertCtrl: AlertController, public movies: Movies) {
+	constructor(public viewCtrl: ViewController,
+	public alertCtrl: AlertController,
+	public lists: Lists) {
 
 	}
 
@@ -19,8 +22,9 @@ export class AddListPage {
 	}
 
 	add(): void {
-		for (let i = 0; i < this.movies.getLists().length; i++) {
-			if (this.movies.getLists()[i].name == this.name) {
+		let lists = this.lists.get();
+		for (let i = 0; i < lists.length; i++) {
+			if (lists[i].name == this.name) {
 				this.alertCtrl.create({
 					title: 'There is already a list with the same name',
 					buttons: ['Ok']
@@ -28,9 +32,10 @@ export class AddListPage {
 				return;
 			}
 		}
-		this.movies.addList({
+		this.lists.add({
 			name: this.name,
-			description: this.description
+			description: this.description,
+			movies: []
 		});
 		this.viewCtrl.dismiss();
 	}

@@ -1,17 +1,22 @@
 import { Component } from '@angular/core';
 import { ViewController, ModalController } from 'ionic-angular';
+
 import { AddListPage } from '../add-list/add-list';
-import { Movies } from '../../providers/movies';
+
+import { Lists } from '../../providers/lists';
 
 @Component({
 	selector: 'page-select-list',
 	templateUrl: 'select-list.html'
 })
 export class SelectListPage {
-	lists: string[];
+	selections: string[];
+	filter: string = '';
 
-	constructor(public modalCtrl: ModalController, public viewCtrl: ViewController, public movies: Movies) {
-		this.lists = viewCtrl.data.lists;
+	constructor(public modalCtrl: ModalController,
+	public viewCtrl: ViewController,
+	public lists: Lists) {
+		this.selections = viewCtrl.data.selections;
 	}
 
 	cancel(): void {
@@ -19,7 +24,7 @@ export class SelectListPage {
 	}
 
 	done(): void {
-		this.viewCtrl.dismiss(this.lists);
+		this.viewCtrl.dismiss(this.selections);
 	}
 	
 	addList(): void {
@@ -27,10 +32,10 @@ export class SelectListPage {
 	}
 
 	select(list: any): void {
-		if (this.lists.indexOf(list) > -1) {
-			this.lists.splice(this.lists.indexOf(list), 1);
+		if (this.selections.indexOf(list) > -1) {
+			this.selections.splice(this.selections.indexOf(list), 1);
 		} else {
-			this.lists.push(list);
+			this.selections.push(list);
 		}
 	}
 }

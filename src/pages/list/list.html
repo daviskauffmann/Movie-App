@@ -3,33 +3,29 @@
 		<ion-title>
 			{{list.name}}
 		</ion-title>
+		<ion-buttons end>
+			<button ion-button icon-only>
+        <ion-icon name="more"></ion-icon>
+      </button>
+		</ion-buttons>
 	</ion-navbar>
 	<ion-toolbar padding>
 		{{list.description}}
 	</ion-toolbar>
 </ion-header>
 <ion-content>
-	<ion-list *ngFor="let genre of movies.getGenres(list, null)">
-		<ion-list-header>
-			{{genre}}
-		</ion-list-header>
-		<ion-item-sliding *ngFor="let movie of movies.getMovies(list, genre, null)">
-			<ion-item (click)="movieInfo(movie)">
+	<ion-list>
+		<ion-item-sliding *ngFor="let movie of lists.getMovies(list, null)">
+			<ion-item text-wrap (click)="viewMovie(movie)">
 				<ion-thumbnail item-left>
 					<img src="{{movie.Poster}}" />
 				</ion-thumbnail>
 				<h2>
 					{{movie.Title}} ({{movie.Year}})
 				</h2>
-				<p>
-					{{movie.Director}}
-				</p>
-				<p>
-					<ion-icon small name="star">&nbsp;{{movie.imdbRating}}</ion-icon>
-				</p>
 			</ion-item>
 			<ion-item-options>
-				<button ion-button color="danger" (click)="movies.removeMovie(movie)">
+				<button ion-button color="danger" (click)="removeMovie(movie)">
           Remove
         </button>
 			</ion-item-options>

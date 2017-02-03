@@ -1,0 +1,14 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<ion-title>
+			Top 10
+		</ion-title>
+	</ion-navbar>
+</ion-header>
+<ion-content>
+	<ion-list>
+		<ion-item *ngFor="let movie of movies">
+			<h1>{{movie.rank}}</h1>
+		</ion-item>
+	</ion-list>
+</ion-content>

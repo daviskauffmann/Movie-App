@@ -1,0 +1,86 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<ion-title>
+			{{fullMovie.Title}}
+		</ion-title>
+	</ion-navbar>
+</ion-header>
+<ion-content>
+	<ion-card>
+		<ion-card-header>
+			<h1>{{fullMovie.Title}} <small>({{fullMovie.Year}})</small></h1>
+			<p>{{fullMovie.Rated}} | {{fullMovie.Runtime}} | {{fullMovie.Genre}}</p>
+		</ion-card-header>
+		<ion-card-content>
+			<p>{{fullMovie.Plot}}</p>
+			<br>
+			<button ion-button block (click)="selectList()">
+				Add to List
+			</button>
+			<button ion-button block (click)="addReview()">
+				Write a Review
+			</button>
+			<button ion-button block>
+				Add to Top 10
+			</button>
+		</ion-card-content>
+		<ion-item>
+			<ion-icon name='star' item-left></ion-icon>
+			IMDB Rating
+			<ion-badge item-right>{{fullMovie.imdbRating}}</ion-badge>
+		</ion-item>
+		<ion-item>
+			<ion-icon name='people' item-left></ion-icon>
+			IMDB Votes
+			<ion-badge item-right>{{fullMovie.imdbVotes}}</ion-badge>
+		</ion-item>
+		<ion-item>
+			<span class="metascore favorable">
+				{{fullMovie.Metascore}}
+			</span> 
+			Metascore
+		</ion-item>
+	</ion-card>
+	<ion-card *ngIf="review">
+		<ion-card-header>
+			<h1>Your Review</h1>
+		</ion-card-header>
+		<ion-card-content>
+			<p>{{review.rating}}</p>
+			<p>{{review.review}}</p>
+		</ion-card-content>
+	</ion-card>
+	<ion-card>
+		<ion-card-header>
+			<h1>Cast and Crew</h1>
+		</ion-card-header>
+		<ion-card-content>
+			<p><strong>Director: </strong>{{fullMovie.Director}}</p>
+			<p><strong>Writer: </strong>{{fullMovie.Writer}}</p>
+			<p><strong>Actors: </strong>{{fullMovie.Actors}}</p>
+		</ion-card-content>
+	</ion-card>
+	<ion-card>
+		<ion-card-header>
+			<h1>Awards</h1>
+		</ion-card-header>
+		<ion-card-content>
+			<p>{{fullMovie.Awards}}</p>
+		</ion-card-content>
+	</ion-card>
+	<ion-card>
+		<ion-card-header>
+			<h1>Details</h1>
+		</ion-card-header>
+		<ion-card-content>
+			<p><strong>Release Date: </strong>{{fullMovie.Released}}</p>
+			<p><strong>Language: </strong>{{fullMovie.Language}}</p>
+			<p><strong>Country of Origin: </strong>{{fullMovie.Country}}</p>
+		</ion-card-content>
+	</ion-card>
+	<ion-card>
+		<ion-card-content>
+			<img src="{{fullMovie.Poster}}" />
+		</ion-card-content>
+	</ion-card>
+</ion-content>

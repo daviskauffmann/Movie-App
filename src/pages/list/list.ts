@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { MovieInfoPage } from '../movie-info/movie-info';
-import { Movies } from '../../providers/movies';
+
+import { MoviePage } from '../movie/movie';
+
+import { Lists } from '../../providers/lists';
 
 @Component({
 	selector: 'page-list',
@@ -10,14 +12,20 @@ import { Movies } from '../../providers/movies';
 export class ListPage {
 	list: any;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public movies: Movies) {
+	constructor(public navCtrl: NavController,
+	public navParams: NavParams,
+	public lists: Lists) {
 		this.list = navParams.data.list;
-		console.log(this.list);
 	}
 
-	movieInfo(movie: any): void {
-		this.navCtrl.push(MovieInfoPage, {
+	viewMovie(movie: any): void {
+		this.navCtrl.push(MoviePage, {
 			movie: movie
 		});
+	}
+
+	removeMovie(movie: any): void {
+		this.list.movies.splice(this.list.movies.indexOf(movie), 1);
+		this.lists.save();
 	}
 }

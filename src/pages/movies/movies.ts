@@ -1,19 +1,25 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
+
 import { AddListPage } from '../add-list/add-list';
 import { ListPage } from '../list/list';
-import { MovieInfoPage } from '../movie-info/movie-info';
-import { Movies } from '../../providers/movies';
+import { MoviePage } from '../movie/movie';
+
+import { Lists } from '../../providers/lists';
 
 @Component({
-	selector: 'page-home',
-	templateUrl: 'home.html'
+	selector: 'page-movies',
+	templateUrl: 'movies.html'
 })
-export class HomePage {
+export class MoviesPage {
 	segment: string = 'all';
+	movieFilter: string = '';
+	listFilter: string = '';
 
-	constructor(public navCtrl: NavController, public modalCtrl: ModalController, public movies: Movies) {
-
+	constructor(public navCtrl: NavController,
+	public modalCtrl: ModalController,
+	public lists: Lists) {
+		
 	}
 	
 	addList(): void {
@@ -27,7 +33,7 @@ export class HomePage {
 	}
 
 	viewMovie(movie: any): void {
-		this.navCtrl.push(MovieInfoPage, {
+		this.navCtrl.push(MoviePage, {
 			movie: movie
 		});
 	}
