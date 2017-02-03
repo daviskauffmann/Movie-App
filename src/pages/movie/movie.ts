@@ -15,6 +15,7 @@ import { Reviews } from '../../providers/reviews';
 export class MoviePage {
 	movie: any;
 	fullMovie: any = {};
+	metascore: string = 'unfavorable';
 
 	constructor(public navCtrl: NavController,
 	public navParams: NavParams,
@@ -39,6 +40,9 @@ export class MoviePage {
 				return;
 			}
 			this.fullMovie = movie;
+			this.metascore = parseInt(this.fullMovie.Metascore) > 60 ? 'favorable'
+			: parseInt(this.fullMovie.Metascore) > 39 ? 'mixed'
+			: 'unfavorable';
 		}, (error) => {
 			console.log(error);
 			loader.dismiss();
@@ -55,8 +59,8 @@ export class MoviePage {
 				});
 			})
 		});
-		modal.onDidDismiss((lists) => {
-			if (lists) {
+		modal.onDidDismiss((selections) => {
+			if (selections) {
 				this.lists.get().forEach((list) => {
 					list.movies.forEach((movie) => {
 						if (movie.imdbID == this.movie.imdbID) {
@@ -64,8 +68,8 @@ export class MoviePage {
 						}
 					});
 				});
-				lists.forEach((list) => {
-					this.lists.addMovie(list, this.movie);
+				selections.forEach((selection) => {
+					this.lists.addMovie(selection, this.movie);
 				});
 			}
 		});

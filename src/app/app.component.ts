@@ -26,7 +26,6 @@ export class MyApp {
 			StatusBar.styleDefault();
 			Splashscreen.hide();
 		});
-		
 		//this.storage.clear();
 		this.movies.load();
 		this.lists.load();

@@ -28,7 +28,7 @@
 			<ion-badge item-right>{{fullMovie.imdbVotes}}</ion-badge>
 		</ion-item>
 		<ion-item>
-			<span class="metascore favorable">{{fullMovie.Metascore}}</span>&nbsp;Metascore
+			<span class="metascore" [ngClass]="metascore">{{fullMovie.Metascore}}</span>&nbsp;Metascore
 		</ion-item>
 	</ion-card>
 	<ion-card *ngIf="getReview()">
