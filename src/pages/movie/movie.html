@@ -1,8 +1,6 @@
 <ion-header>
 	<ion-navbar color="primary">
-		<ion-title>
-			{{fullMovie.Title}}
-		</ion-title>
+		<ion-title>{{fullMovie.Title}}</ion-title>
 	</ion-navbar>
 </ion-header>
 <ion-content>
@@ -14,15 +12,10 @@
 		<ion-card-content>
 			<p>{{fullMovie.Plot}}</p>
 			<br>
-			<button ion-button block (click)="selectList()">
-				Add to List
-			</button>
-			<button ion-button block (click)="addReview()">
-				Write a Review
-			</button>
-			<button ion-button block>
-				Add to Top 10
-			</button>
+			<button ion-button block (click)="selectList()">Add to List</button>
+			<button ion-button block *ngIf="!getReview()" (click)="addReview()">Write a Review</button>
+			<button ion-button block *ngIf="getReview()" (click)="addReview()">Edit Your Review</button>
+			<button ion-button block>Add to Top 10</button>
 		</ion-card-content>
 		<ion-item>
 			<ion-icon name='star' item-left></ion-icon>
@@ -35,19 +28,16 @@
 			<ion-badge item-right>{{fullMovie.imdbVotes}}</ion-badge>
 		</ion-item>
 		<ion-item>
-			<span class="metascore favorable">
-				{{fullMovie.Metascore}}
-			</span> 
-			Metascore
+			<span class="metascore favorable">{{fullMovie.Metascore}}</span>&nbsp;Metascore
 		</ion-item>
 	</ion-card>
-	<ion-card *ngIf="review">
+	<ion-card *ngIf="getReview()">
 		<ion-card-header>
 			<h1>Your Review</h1>
 		</ion-card-header>
 		<ion-card-content>
-			<p>{{review.rating}}</p>
-			<p>{{review.review}}</p>
+			<p>{{getReview().rating}}</p>
+			<p>{{getReview().review}}</p>
 		</ion-card-content>
 	</ion-card>
 	<ion-card>

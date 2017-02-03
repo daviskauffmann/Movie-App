@@ -26,9 +26,9 @@ export class Lists {
 	}
 
 	load(): void {
-		this.storage.get('lists').then((value) => {
-			if (value) {
-				this.lists = JSON.parse(value);
+		this.storage.get('lists').then((lists) => {
+			if (lists) {
+				this.lists = JSON.parse(lists);
 				console.log('lists loaded');
 				console.log(this.lists);
 			}
@@ -48,13 +48,25 @@ export class Lists {
 	get(filter?: string): any[] {
 		let lists: any[] = this.lists;
 		if (filter && filter.trim() != '') {
-			lists = lists.filter((value) => {
-				return value.name.toLowerCase().indexOf(filter.toLowerCase()) > -1;
+			lists = lists.filter((list) => {
+				return list.name.toLowerCase().indexOf(filter.toLowerCase()) > -1;
 			});
 		}
-		return lists.sort((a, b) => {
-			return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : a.name.toLowerCase() > b.name.toLowerCase() ? 1 : 0;
+		return lists.sort((list1, list2) => {
+			return list1.name.toLowerCase() < list2.name.toLowerCase() ? -1
+			: list1.name.toLowerCase() > list2.name.toLowerCase() ? 1
+			: 0;
 		});
+	}
+
+	addMovie(list: any, movie: any) {
+		list.movies.push(movie);
+		this.save();
+	}
+
+	removeMovie(list: any, movie: any) {
+		list.movies.splice(list.movies.indexOf(movie), 1);
+		this.save();
 	}
 
 	getMovies(list?: any, filter?: string): any[] {
@@ -62,28 +74,25 @@ export class Lists {
 		if (list) {
 			movies = list.movies;
 		} else {
-			this.lists.forEach((value) => {
-				value.movies.forEach((value) => {
-					let contains = false;
-					for (let i = 0; i < movies.length; i++) {
-						if (movies[i].imdbID == value.imdbID) {
-							contains = true;
-							break;
-						}
-					}
-					if (!contains) {
-						movies.push(value);
+			this.lists.forEach((list) => {
+				list.movies.forEach((movie) => {
+					if (!movies.some((existing) => {
+						return existing.imdbID == movie.imdbID;
+					})) {
+						movies.push(movie);
 					}
 				});
 			});
 		}
 		if (filter && filter.trim() != '') {
-			movies = movies.filter((value) => {
-				return value.Title.toLowerCase().indexOf(filter.toLowerCase()) > -1;
+			movies = movies.filter((movie) => {
+				return movie.Title.toLowerCase().indexOf(filter.toLowerCase()) > -1;
 			});
 		}
-		return movies.sort((a, b) => {
-			return a.Title.toLowerCase() < b.Title.toLowerCase() ? -1 : a.Title.toLowerCase() > b.Title.toLowerCase() ? 1 : 0;
+		return movies.sort((movie1, movie2) => {
+			return movie1.Title.toLowerCase() < movie2.Title.toLowerCase() ? -1
+			: movie1.Title.toLowerCase() > movie2.Title.toLowerCase() ? 1
+			: 0;
 		});
 	}
 }

@@ -1,8 +1,6 @@
 <ion-header>
 	<ion-navbar color="primary">
-		<ion-title>
-			Reviews
-		</ion-title>
+		<ion-title>Reviews</ion-title>
 	</ion-navbar>
 </ion-header>
 <ion-content>
@@ -12,17 +10,12 @@
 				<ion-thumbnail item-left>
 					<img src="{{review.movie.Poster}}" />
 				</ion-thumbnail>
-				<h2>
-					{{review.movie.Title}} ({{review.movie.Year}})
-				</h2>
-				<p>
-					<ion-icon name="star"></ion-icon>&nbsp;{{review.rating}}</p>
+				<h2>{{review.movie.Title}} ({{review.movie.Year}})</h2>
+				<p><ion-icon name="star"></ion-icon>&nbsp;{{review.rating}}</p>
 				<p>{{review.review}}</p>
 			</ion-item>
 			<ion-item-options>
-				<button ion-button color="danger" (click)="reviews.remove(review)">
-          Remove
-        </button>
+				<button ion-button color="danger" (click)="reviews.remove(review)">Remove</button>
 			</ion-item-options>
 		</ion-item-sliding>
 	</ion-list>

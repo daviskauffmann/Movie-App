@@ -15,7 +15,6 @@ import { Reviews } from '../../providers/reviews';
 export class MoviePage {
 	movie: any;
 	fullMovie: any = {};
-	review: any;
 
 	constructor(public navCtrl: NavController,
 	public navParams: NavParams,
@@ -30,21 +29,16 @@ export class MoviePage {
 			content: 'Loading...',
 		});
 		loader.present();
-		this.movies.getByID(this.movie.imdbID).subscribe((value) => {
-			if (value.Response == 'False') {
+		this.movies.get(this.movie.imdbID).subscribe((movie) => {
+			if (movie.Response == 'False') {
 				let alert = this.alertCtrl.create({
-					title: value.Error,
+					title: movie.Error,
 					buttons: ['Ok']
 				});
 				alert.present();
 				return;
 			}
-			this.fullMovie = value;
-			this.reviews.get().forEach((value) => {
-				if (value.movie.imdbID == this.movie.imdbID) {
-					this.review = value;
-				}
-			});
+			this.fullMovie = movie;
 		}, (error) => {
 			console.log(error);
 			loader.dismiss();
@@ -54,40 +48,40 @@ export class MoviePage {
 	}
 
 	selectList(): void {
-		let selections: any[] = this.lists.get().filter((value) => {
-			for (let i = 0; i < value.movies.length; i++) {
-				if (value.movies[i].imdbID == this.movie.imdbID) {
-					return true;
-				}
-			}
-			return false;
-		});
 		let modal = this.modalCtrl.create(SelectListPage, {
-			selections: selections
+			selections: this.lists.get().filter((list) => {
+				return list.movies.some((movie) => {
+					return movie.imdbID == this.movie.imdbID;
+				});
+			})
 		});
 		modal.onDidDismiss((lists) => {
 			if (lists) {
-				this.lists.get().forEach((value) => {
-					for (let i = 0; i < value.movies.length; i++) {
-						if (value.movies[i].imdbID == this.movie.imdbID) {
-							value.movies.splice(i, 1);
-							break;
+				this.lists.get().forEach((list) => {
+					list.movies.forEach((movie) => {
+						if (movie.imdbID == this.movie.imdbID) {
+							this.lists.removeMovie(list, movie);
 						}
-					}
+					});
 				});
-				for (let i = 0; i < lists.length; i++) {
-					lists[i].movies.push(this.movie);
-				}
-				this.lists.save();
+				lists.forEach((list) => {
+					this.lists.addMovie(list, this.movie);
+				});
 			}
 		});
 		modal.present();
 	}
 
 	addReview(): void {
-		let modal = this.modalCtrl.create(AddReviewPage, {
-			movie: this.movie
+		this.modalCtrl.create(AddReviewPage, {
+			movie: this.movie,
+			review: this.getReview()
+		}).present();
+	}
+
+	getReview(): any {
+		return this.reviews.get().find((review) => {
+			return review.movie.imdbID == this.movie.imdbID;
 		});
-		modal.present();
 	}
 }

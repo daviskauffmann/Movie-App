@@ -1,12 +1,8 @@
 <ion-header>
 	<ion-navbar color="primary">
-		<ion-title>
-			Add List
-		</ion-title>
+		<ion-title>Add List</ion-title>
 		<ion-buttons start>
-			<button ion-button (click)="cancel()">
-        Cancel
-      </button>
+			<button ion-button (click)="cancel()">Cancel</button>
 		</ion-buttons>
 	</ion-navbar>
 </ion-header>
@@ -21,9 +17,7 @@
 			<ion-textarea [(ngModel)]="description"></ion-textarea>
 		</ion-item>
 		<div padding>
-			<button ion-button block (click)="add()">
-				Add
-			</button>
+			<button ion-button block (click)="add()">Add</button>
 		</div>
 	</ion-list>
 </ion-content>

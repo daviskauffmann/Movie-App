@@ -21,11 +21,11 @@ export class SearchPage {
 
 	searchMovies(): void {
 		if (this.query && this.query.trim() != '') {
-			this.movies.search(this.query.trim()).subscribe((value) => {
-				if (value.Response == 'False') {
+			this.movies.search(this.query.trim()).subscribe((results) => {
+				if (results.Response == 'False') {
 					return;
 				}
-				this.results = value.Search;
+				this.results = results.Search;
 			}, (error) => {
 				console.log(error);
 			});

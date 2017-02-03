@@ -10,27 +10,29 @@ export class Movies {
 
 	constructor(public storage: Storage,
 	public http: Http) {
-		
+
 	}
 
 	save(): void {
-		this.storage.set('cache', JSON.stringify(this.cache));
-		console.log('cache saved');
+		/*this.storage.set('cache', JSON.stringify(this.cache));
+		console.log('cache saved');*/
+		console.log(this.cache);
 	}
 
 	load(): void {
-		this.storage.get('cache').then((value) => {
-			if (value) {
-				this.cache = JSON.parse(value);
+		/*this.storage.get('cache').then((cache) => {
+			if (cache) {
+				this.cache = JSON.parse(cache);
 				console.log('cache loaded');
 				console.log(this.cache);
 			}
-		});
-	}	
+		});*/
+	}
 
-	getByID(id: string): any {
+	get(id: string): Observable<any> {
 		for (let i = 0; i < this.cache.length; i++) {
 			if (this.cache[i].imdbID == id) {
+				console.log('movie in cache');
 				return Observable.create((observer) => {
 					observer.next(this.cache[i]);
 					observer.complete();
@@ -38,6 +40,7 @@ export class Movies {
 			}
 		}
 		return this.http.get('http://www.omdbapi.com/?i=' + id + '&plot=short&r=json').map((value) => {
+			console.log('movie downloaded');
 			let movie = value.json();
 			this.cache.push(movie);
 			this.save();
@@ -45,15 +48,23 @@ export class Movies {
 		});
 	}
 
-	getByTitle(title: string): any {
-		return this.http.get('http://www.omdbapi.com/?t=' + title + '&plot=short&r=json').map((value) => {
-			return value.json();
-		});
-	}
-
-	search(query: string): any {
+	search(query: string): Observable<any> {
+		for (let i = 0; i < this.cache.length; i++) {
+			if (this.cache[i].query == query) {
+				console.log('results in cache');
+				return Observable.create((observer) => {
+					observer.next(this.cache[i]);
+					observer.complete();
+				});
+			}
+		}
 		return this.http.get('http://www.omdbapi.com/?s=' + query + '&type=movie&r=json&page=1').map((value) => {
-			return value.json();
+			console.log('results downloaded');
+			let results = value.json();
+			results.query = query;
+			this.cache.push(results);
+			this.save();
+			return results;
 		});
 	}
 }

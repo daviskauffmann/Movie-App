@@ -15,9 +15,9 @@ export class Reviews {
 	}
 
 	load(): void {
-		this.storage.get('reviews').then((value) => {
-			if (value) {
-				this.reviews = JSON.parse(value);
+		this.storage.get('reviews').then((reviews) => {
+			if (reviews) {
+				this.reviews = JSON.parse(reviews);
 				console.log('reviews loaded');
 				console.log(this.reviews);
 			}
@@ -37,12 +37,14 @@ export class Reviews {
 	get(filter?: string): any[] {
 		let reviews: any[] = this.reviews;
 		if (filter && filter.trim() != '') {
-			reviews = reviews.filter((value) => {
-				return value.movie.Title.toLowerCase().indexOf(filter.toLowerCase()) > -1;
+			reviews = reviews.filter((review) => {
+				return review.movie.Title.toLowerCase().indexOf(filter.toLowerCase()) > -1;
 			});
 		}
-		return reviews.sort((a, b) => {
-			return a.movie.Title.toLowerCase() < b.movie.Title.toLowerCase() ? -1 : a.movie.Title.toLowerCase() > b.movie.Title.toLowerCase() ? 1 : 0;
+		return reviews.sort((review1, review2) => {
+			return review1.movie.Title.toLowerCase() < review2.movie.Title.toLowerCase() ? -1
+			: review1.movie.Title.toLowerCase() > review2.movie.Title.toLowerCase() ? 1
+			: 0;
 		});
 	}
 }

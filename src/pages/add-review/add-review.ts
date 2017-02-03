@@ -16,6 +16,10 @@ export class AddReviewPage {
 	public alertCtrl: AlertController,
 	public reviews: Reviews) {
 		this.movie = viewCtrl.data.movie;
+		if (viewCtrl.data.review) {
+			this.rating = viewCtrl.data.review.rating;
+			this.review = viewCtrl.data.review.review
+		}
 	}
 
 	cancel(): void {
@@ -23,21 +27,16 @@ export class AddReviewPage {
 	}
 
 	add(): void {
-		let reviews = this.reviews.get();
-		for (let i = 0; i < reviews.length; i++) {
-			if (reviews[i].movie.imdbID == this.movie.imdbID) {
-				this.alertCtrl.create({
-					title: 'You have already reviewed this movie',
-					buttons: ['Ok']
-				}).present();
-				return;
+		this.reviews.get().forEach((review) => {
+			if (review.movie.imdbID == this.movie.imdbID) {
+				this.reviews.remove(review);
 			}
-		}
+		});
 		this.reviews.add({
 			movie: this.movie,
 			rating: this.rating,
 			review: this.review
-		})
+		});
 		this.viewCtrl.dismiss();
 	}
 }

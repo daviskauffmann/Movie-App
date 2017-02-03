@@ -1,8 +1,6 @@
 <ion-header>
 	<ion-navbar color="primary">
-		<ion-title>
-			{{list.name}}
-		</ion-title>
+		<ion-title>{{list.name}}</ion-title>
 		<ion-buttons end>
 			<button ion-button icon-only>
         <ion-icon name="more"></ion-icon>
@@ -20,14 +18,10 @@
 				<ion-thumbnail item-left>
 					<img src="{{movie.Poster}}" />
 				</ion-thumbnail>
-				<h2>
-					{{movie.Title}} ({{movie.Year}})
-				</h2>
+				<h2>{{movie.Title}} ({{movie.Year}})</h2>
 			</ion-item>
 			<ion-item-options>
-				<button ion-button color="danger" (click)="removeMovie(movie)">
-          Remove
-        </button>
+				<button ion-button color="danger" (click)="removeMovie(movie)">Remove</button>
 			</ion-item-options>
 		</ion-item-sliding>
 	</ion-list>

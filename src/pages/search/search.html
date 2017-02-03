@@ -1,8 +1,6 @@
 <ion-header>
 	<ion-navbar color="primary">
-		<ion-title>
-			Search
-		</ion-title>
+		<ion-title>Search</ion-title>
 	</ion-navbar>
 	<ion-toolbar>
 		<ion-searchbar placeholder="Search..." [(ngModel)]="query" (ionInput)="searchMovies()"></ion-searchbar>
@@ -14,9 +12,7 @@
 			<ion-thumbnail item-left>
 				<img src="{{result.Poster}}" />
 			</ion-thumbnail>
-			<h2>
-				{{result.Title}} ({{result.Year}})
-			</h2>
+			<h2>{{result.Title}} ({{result.Year}})</h2>
 		</ion-item>
 	</ion-list>
 </ion-content>
