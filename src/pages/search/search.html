@@ -3,7 +3,7 @@
 		<ion-title>Search</ion-title>
 	</ion-navbar>
 	<ion-toolbar>
-		<ion-searchbar placeholder="Search..." [(ngModel)]="query" (ionInput)="searchMovies()"></ion-searchbar>
+		<ion-searchbar (ionInput)="searchMovies($event)"></ion-searchbar>
 	</ion-toolbar>
 </ion-header>
 <ion-content>

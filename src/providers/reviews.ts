@@ -4,9 +4,9 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class Reviews {
 	private reviews: any[] = [];
-	
+
 	constructor(public storage: Storage) {
-		
+
 	}
 
 	save(): void {
@@ -43,8 +43,8 @@ export class Reviews {
 		}
 		return reviews.sort((review1, review2) => {
 			return review1.movie.Title.toLowerCase() < review2.movie.Title.toLowerCase() ? -1
-			: review1.movie.Title.toLowerCase() > review2.movie.Title.toLowerCase() ? 1
-			: 0;
+				: review1.movie.Title.toLowerCase() > review2.movie.Title.toLowerCase() ? 1
+				: 0;
 		});
 	}
 }

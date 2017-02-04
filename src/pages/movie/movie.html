@@ -14,7 +14,7 @@
 			<br>
 			<button ion-button block (click)="selectList()">Add to List</button>
 			<button ion-button block *ngIf="!getReview()" (click)="addReview()">Write a Review</button>
-			<button ion-button block *ngIf="getReview()" (click)="addReview()">Edit Your Review</button>
+			<button ion-button block *ngIf="getReview()" (click)="addReview()">Edit Review</button>
 			<button ion-button block>Add to Top 10</button>
 		</ion-card-content>
 		<ion-item>
@@ -33,7 +33,7 @@
 	</ion-card>
 	<ion-card *ngIf="getReview()">
 		<ion-card-header>
-			<h1>Your Review</h1>
+			<h1>My Review</h1>
 		</ion-card-header>
 		<ion-card-content>
 			<p>{{getReview().rating}}</p>

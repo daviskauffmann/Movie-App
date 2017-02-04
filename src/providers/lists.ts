@@ -17,7 +17,7 @@ export class Lists {
 	];
 
 	constructor(public storage: Storage) {
-		
+
 	}
 
 	save(): void {
@@ -54,8 +54,8 @@ export class Lists {
 		}
 		return lists.sort((list1, list2) => {
 			return list1.name.toLowerCase() < list2.name.toLowerCase() ? -1
-			: list1.name.toLowerCase() > list2.name.toLowerCase() ? 1
-			: 0;
+				: list1.name.toLowerCase() > list2.name.toLowerCase() ? 1
+				: 0;
 		});
 	}
 
@@ -91,8 +91,8 @@ export class Lists {
 		}
 		return movies.sort((movie1, movie2) => {
 			return movie1.Title.toLowerCase() < movie2.Title.toLowerCase() ? -1
-			: movie1.Title.toLowerCase() > movie2.Title.toLowerCase() ? 1
-			: 0;
+				: movie1.Title.toLowerCase() > movie2.Title.toLowerCase() ? 1
+				: 0;
 		});
 	}
 }

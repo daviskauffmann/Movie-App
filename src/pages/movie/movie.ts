@@ -41,8 +41,8 @@ export class MoviePage {
 			}
 			this.fullMovie = movie;
 			this.metascore = parseInt(this.fullMovie.Metascore) > 60 ? 'favorable'
-			: parseInt(this.fullMovie.Metascore) > 39 ? 'mixed'
-			: 'unfavorable';
+				: parseInt(this.fullMovie.Metascore) > 39 ? 'mixed'
+					: 'unfavorable';
 		}, (error) => {
 			console.log(error);
 			loader.dismiss();

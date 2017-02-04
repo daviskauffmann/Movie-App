@@ -19,9 +19,9 @@ export class MoviesPage {
 	constructor(public navCtrl: NavController,
 	public modalCtrl: ModalController,
 	public lists: Lists) {
-		
+
 	}
-	
+
 	addList(): void {
 		this.modalCtrl.create(AddListPage).present();
 	}

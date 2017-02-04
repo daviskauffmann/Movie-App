@@ -16,7 +16,6 @@ export class Movies {
 	save(): void {
 		/*this.storage.set('cache', JSON.stringify(this.cache));
 		console.log('cache saved');*/
-		console.log(this.cache);
 	}
 
 	load(): void {
@@ -58,7 +57,7 @@ export class Movies {
 				});
 			}
 		}
-		return this.http.get('http://www.omdbapi.com/?s=' + query + '&type=movie&r=json&page=1').map((value) => {
+		return this.http.get('http://www.omdbapi.com/?s=' + query + '&type=movie&r=json').map((value) => {
 			console.log('results downloaded');
 			let results = value.json();
 			results.query = query;

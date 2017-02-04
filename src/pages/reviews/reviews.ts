@@ -12,7 +12,7 @@ import { Reviews } from '../../providers/reviews';
 export class ReviewsPage {
 	constructor(public navCtrl: NavController,
 	public reviews: Reviews) {
-		
+
 	}
 
 	viewMovie(movie: any): void {

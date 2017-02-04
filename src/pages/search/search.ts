@@ -10,7 +10,6 @@ import { Movies } from '../../providers/movies';
 	templateUrl: 'search.html'
 })
 export class SearchPage {
-	query: string = '';
 	results: any[] = [];
 
 	constructor(public navCtrl: NavController,
@@ -19,9 +18,9 @@ export class SearchPage {
 
 	}
 
-	searchMovies(): void {
-		if (this.query && this.query.trim() != '') {
-			this.movies.search(this.query.trim()).subscribe((results) => {
+	searchMovies(event): void {
+		if (event.target.value && event.target.value.trim() != '') {
+			this.movies.search(event.target.value.trim()).subscribe((results) => {
 				if (results.Response == 'False') {
 					return;
 				}
@@ -29,6 +28,8 @@ export class SearchPage {
 			}, (error) => {
 				console.log(error);
 			});
+		} else {
+			this.results = [];
 		}
 	}
 

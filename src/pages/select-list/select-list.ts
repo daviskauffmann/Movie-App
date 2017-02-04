@@ -26,7 +26,7 @@ export class SelectListPage {
 	done(): void {
 		this.viewCtrl.dismiss(this.selections);
 	}
-	
+
 	addList(): void {
 		this.modalCtrl.create(AddListPage).present();
 	}
