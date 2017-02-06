@@ -1,6 +1,7 @@
 <ion-header>
-	<ion-navbar color="primary">
-		<ion-title>Add List</ion-title>
+	<ion-navbar>
+		<ion-title *ngIf="!viewCtrl.data.list">Add List</ion-title>
+		<ion-title *ngIf="viewCtrl.data.list">Edit List</ion-title>
 		<ion-buttons start>
 			<button ion-button (click)="cancel()">Cancel</button>
 		</ion-buttons>
@@ -17,7 +18,8 @@
 			<ion-textarea [(ngModel)]="description"></ion-textarea>
 		</ion-item>
 		<div padding>
-			<button ion-button block (click)="add()">Add</button>
+			<button ion-button block *ngIf="!viewCtrl.data.list" (click)="add()">Add</button>
+			<button ion-button block *ngIf="viewCtrl.data.list" (click)="edit()">Edit</button>
 		</div>
 	</ion-list>
 </ion-content>

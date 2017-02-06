@@ -1,0 +1,27 @@
+<ion-header no-border>
+	<ion-navbar>
+		<ion-buttons end *ngIf="showSkip">
+			<button ion-button color="primary" (click)="startApp()">Skip</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+<ion-content no-bounce>
+	<ion-slides (ionSlideWillChange)="onSlideChangeStart($event)" [options]="{pager: true}">
+		<ion-slide>
+			<h1>Slide 1</h1>
+		</ion-slide>
+		<ion-slide>
+			<h1>Slide 2</h1>
+		</ion-slide>
+		<ion-slide>
+			<h1>Slide 3</h1>
+		</ion-slide>
+		<ion-slide>
+			<h1>Slide 4</h1>
+			<button ion-button icon-right large clear (click)="startApp()">
+        Continue
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+		</ion-slide>
+	</ion-slides>
+</ion-content>

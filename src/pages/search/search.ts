@@ -12,9 +12,11 @@ import { Movies } from '../../providers/movies';
 export class SearchPage {
 	results: any[] = [];
 
-	constructor(public navCtrl: NavController,
-	public alertCtrl: AlertController,
-	public movies: Movies) {
+	constructor(
+		public navCtrl: NavController,
+		public alertCtrl: AlertController,
+		public movies: Movies
+	) {
 
 	}
 

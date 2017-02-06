@@ -1,5 +1,5 @@
 <ion-header>
-	<ion-navbar color="primary">
+	<ion-navbar>
 		<ion-title>Lists</ion-title>
 		<ion-buttons start>
 			<button ion-button (click)="cancel()">Cancel</button>
@@ -15,13 +15,13 @@
 			<ion-icon item-right name="add"></ion-icon>
 			Create New List
 		</ion-item>
-		<ion-item-sliding *ngFor="let list of lists.get(filter)">
+		<ion-item-sliding *ngFor="let list of lists.get(filter)" #itemSliding>
 			<ion-item>
 				<ion-label>{{list.name}}</ion-label>
 				<ion-checkbox (click)="select(list)" item-right checked="{{selections.indexOf(list) > -1}}"></ion-checkbox>
 			</ion-item>
 			<ion-item-options>
-				<button ion-button color="danger" (click)="movies.removeList(list)">Remove</button>
+				<button ion-button color="danger" (click)="removeList(list, itemSliding)">Remove</button>
 			</ion-item-options>
 		</ion-item-sliding>
 	</ion-list>

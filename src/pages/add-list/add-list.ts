@@ -11,10 +11,15 @@ export class AddListPage {
 	name: string = '';
 	description: string = '';
 
-	constructor(public viewCtrl: ViewController,
-	public alertCtrl: AlertController,
-	public lists: Lists) {
-
+	constructor(
+		public viewCtrl: ViewController,
+		public alertCtrl: AlertController,
+		public lists: Lists
+	) {
+		if (this.viewCtrl.data.list) {
+			this.name = this.viewCtrl.data.list.name;
+			this.description = this.viewCtrl.data.list.description;
+		}
 	}
 
 	cancel(): void {
@@ -37,6 +42,13 @@ export class AddListPage {
 			description: this.description,
 			movies: []
 		});
+		this.viewCtrl.dismiss();
+	}
+
+	edit(): void {
+		this.viewCtrl.data.list.name = this.name;
+		this.viewCtrl.data.list.description = this.description;
+		this.lists.save();
 		this.viewCtrl.dismiss();
 	}
 }

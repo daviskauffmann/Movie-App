@@ -1,21 +1,21 @@
 <ion-header>
-	<ion-navbar color="primary">
+	<ion-navbar>
 		<ion-title>Reviews</ion-title>
 	</ion-navbar>
 </ion-header>
 <ion-content>
 	<ion-list>
-		<ion-item-sliding *ngFor="let review of reviews.get(null)">
-			<ion-item text-wrap (click)="viewMovie(review.movie)">
+		<ion-item-sliding *ngFor="let review of reviews.get(null)" #itemSliding>
+			<button ion-item text-wrap (click)="viewMovie(review.movie)">
 				<ion-thumbnail item-left>
 					<img src="{{review.movie.Poster}}" />
 				</ion-thumbnail>
 				<h2>{{review.movie.Title}} ({{review.movie.Year}})</h2>
 				<p><ion-icon name="star"></ion-icon>&nbsp;{{review.rating}}</p>
 				<p>{{review.review}}</p>
-			</ion-item>
+			</button>
 			<ion-item-options>
-				<button ion-button color="danger" (click)="reviews.remove(review)">Remove</button>
+				<button ion-button color="danger" (click)="removeReview(review, itemSliding)">Remove</button>
 			</ion-item-options>
 		</ion-item-sliding>
 	</ion-list>

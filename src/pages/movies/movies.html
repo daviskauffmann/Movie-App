@@ -1,32 +1,36 @@
 <ion-header>
-	<ion-navbar color="primary">
-		<ion-title>Movies</ion-title>
-	</ion-navbar>
-	<ion-toolbar>
+	<ion-navbar>
 		<ion-segment [(ngModel)]="segment">
 			<ion-segment-button value="all">All</ion-segment-button>
 			<ion-segment-button value="lists">Lists</ion-segment-button>
 		</ion-segment>
-	</ion-toolbar>
+	</ion-navbar>
+	<!--ion-toolbar [ngSwitch]="segment">
+		<ion-searchbar *ngSwitchCase="'all'" [(ngModel)]="movieFilter"></ion-searchbar>
+		<ion-searchbar *ngSwitchCase="'lists'" [(ngModel)]="listFilter"></ion-searchbar>
+	</ion-toolbar-->
 </ion-header>
 <ion-content [ngSwitch]="segment">
 	<ion-list *ngSwitchCase="'all'">
-		<ion-item *ngFor="let movie of lists.getMovies(null, movieFilter)" text-wrap (click)="viewMovie(movie)">
+		<button ion-item text-wrap *ngFor="let movie of lists.getMovies(null, movieFilter)" (click)="viewMovie(movie)">
 			<ion-thumbnail item-left>
 				<img src="{{movie.Poster}}" />
 			</ion-thumbnail>
 			<h2>{{movie.Title}} ({{movie.Year}})</h2>
-		</ion-item>
+		</button>
 	</ion-list>
 	<ion-list *ngSwitchCase="'lists'">
-		<ion-item (click)="addList()">
-			<ion-icon item-right name="add"></ion-icon>
-			Create New List
+		<ion-item text-wrap (click)="addList()">
+			<ion-icon item-left name="add"></ion-icon>
+			<h2>Create New List</h2>
 		</ion-item>
-		<ion-item-sliding *ngFor="let list of lists.get(listFilter)">
-			<ion-item text-wrap (click)="viewList(list)">{{list.name}}</ion-item>
+		<ion-item-sliding *ngFor="let list of lists.get(listFilter)" #itemSliding>
+			<button ion-item text-wrap (click)="viewList(list)">
+				<ion-icon item-left name="list"></ion-icon>
+				<h2>{{list.name}}</h2>
+			</button>
 			<ion-item-options>
-				<button ion-button color="danger" (click)="lists.remove(list)">Remove</button>
+				<button ion-button color="danger" (click)="removeList(list, itemSliding)">Remove</button>
 			</ion-item-options>
 		</ion-item-sliding>
 	</ion-list>

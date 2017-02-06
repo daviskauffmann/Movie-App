@@ -1,12 +1,25 @@
 <ion-header>
-	<ion-navbar color="primary">
+	<ion-navbar>
 		<ion-title>Top 10</ion-title>
+		<ion-buttons end>
+			<button ion-button icon-only (click)="reorder=!reorder">
+				<ion-icon name="reorder"></ion-icon>
+			</button>
+		</ion-buttons>
 	</ion-navbar>
 </ion-header>
 <ion-content>
-	<ion-list>
-		<ion-item *ngFor="let movie of movies">
-			<h1>{{movie.rank}}</h1>
-		</ion-item>
+	<ion-list [reorder]="reorder" (ionItemReorder)="top10.reorder($event)">
+		<ion-item-sliding *ngFor="let movie of top10.get(); let index = index" #itemSliding>
+			<ion-item text-wrap (click)="viewMovie(movie)">
+				<ion-thumbnail item-left>
+					<img src=""/>
+				</ion-thumbnail>
+				<h2>{{movie.Title}} ({{movie.Year}})</h2>
+			</ion-item>
+			<ion-item-options>
+				<button ion-button color="danger" (click)="removeMovie(movie, itemSliding)">Remove</button>
+			</ion-item-options>
+		</ion-item-sliding>
 	</ion-list>
 </ion-content>

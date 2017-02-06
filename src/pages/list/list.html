@@ -1,27 +1,30 @@
 <ion-header>
-	<ion-navbar color="primary">
+	<ion-navbar>
 		<ion-title>{{list.name}}</ion-title>
 		<ion-buttons end>
-			<button ion-button icon-only>
+			<button ion-button icon-only (click)="showMenu($event)">
         <ion-icon name="more"></ion-icon>
       </button>
 		</ion-buttons>
 	</ion-navbar>
-	<ion-toolbar padding>
-		{{list.description}}
-	</ion-toolbar>
+	<!--ion-toolbar>
+		<ion-searchbar [(ngModel)]="filter"></ion-searchbar>
+	</ion-toolbar-->
 </ion-header>
 <ion-content>
 	<ion-list>
-		<ion-item-sliding *ngFor="let movie of lists.getMovies(list, null)">
-			<ion-item text-wrap (click)="viewMovie(movie)">
+		<ion-list-header>
+			<h2>{{list.description}}</h2>
+		</ion-list-header>
+		<ion-item-sliding *ngFor="let movie of lists.getMovies(list, filter)" #itemSliding>
+			<button ion-item text-wrap (click)="viewMovie(movie)">
 				<ion-thumbnail item-left>
 					<img src="{{movie.Poster}}" />
 				</ion-thumbnail>
 				<h2>{{movie.Title}} ({{movie.Year}})</h2>
-			</ion-item>
+			</button>
 			<ion-item-options>
-				<button ion-button color="danger" (click)="removeMovie(movie)">Remove</button>
+				<button ion-button color="danger" (click)="removeMovie(movie, itemSliding)">Remove</button>
 			</ion-item-options>
 		</ion-item-sliding>
 	</ion-list>

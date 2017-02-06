@@ -9,12 +9,14 @@ import { Reviews } from '../../providers/reviews';
 })
 export class AddReviewPage {
 	movie: any;
-	rating: string = '';
+	rating: number = 5;
 	review: string = '';
 
-	constructor(public viewCtrl: ViewController,
-	public alertCtrl: AlertController,
-	public reviews: Reviews) {
+	constructor(
+		public viewCtrl: ViewController,
+		public alertCtrl: AlertController,
+		public reviews: Reviews
+	) {
 		this.movie = viewCtrl.data.movie;
 		if (viewCtrl.data.review) {
 			this.rating = viewCtrl.data.review.rating;

@@ -7,9 +7,12 @@ import { Observable } from 'rxjs/Rx';
 @Injectable()
 export class Movies {
 	private cache: any[] = [];
+	//private apiKey: string = '1f9e595c276fb6c99c4ae06adfd2ed9b';
 
-	constructor(public storage: Storage,
-	public http: Http) {
+	constructor(
+		public storage: Storage,
+		public http: Http
+	) {
 
 	}
 
@@ -29,6 +32,7 @@ export class Movies {
 	}
 
 	get(id: string): Observable<any> {
+		console.log('getting movie with id: ' + id);
 		for (let i = 0; i < this.cache.length; i++) {
 			if (this.cache[i].imdbID == id) {
 				console.log('movie in cache');
@@ -45,9 +49,17 @@ export class Movies {
 			this.save();
 			return movie;
 		});
+		/*return this.http.get('https://api.themoviedb.org/3/movie/' + id + '?api_key=' + this.apiKey).map((value) => {
+			console.log('movie downloaded');
+			let movie = value.json();
+			this.cache.push(movie);
+			this.save();
+			return movie;
+		});*/
 	}
 
 	search(query: string): Observable<any> {
+		console.log('getting results for query: ' + query);
 		for (let i = 0; i < this.cache.length; i++) {
 			if (this.cache[i].query == query) {
 				console.log('results in cache');
@@ -65,5 +77,13 @@ export class Movies {
 			this.save();
 			return results;
 		});
+		/*return this.http.get('https://api.themoviedb.org/3/search/movie?query=' + query + '&api_key=' + this.apiKey).map((value) => {
+			console.log('results downloaded');
+			let results = value.json();
+			results.query = query;
+			this.cache.push(results);
+			this.save();
+			return results;
+		});*/
 	}
 }

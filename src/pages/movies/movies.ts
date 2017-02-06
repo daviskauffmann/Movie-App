@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { ItemSliding, NavController, ModalController, AlertController } from 'ionic-angular';
 
 import { AddListPage } from '../add-list/add-list';
 import { ListPage } from '../list/list';
@@ -16,9 +16,12 @@ export class MoviesPage {
 	movieFilter: string = '';
 	listFilter: string = '';
 
-	constructor(public navCtrl: NavController,
-	public modalCtrl: ModalController,
-	public lists: Lists) {
+	constructor(
+		public navCtrl: NavController,
+		public modalCtrl: ModalController,
+		public alertCtrl: AlertController,
+		public lists: Lists
+	) {
 
 	}
 
@@ -30,6 +33,28 @@ export class MoviesPage {
 		this.navCtrl.push(ListPage, {
 			list: list
 		});
+	}
+
+	removeList(list: any, itemSliding: ItemSliding): void {
+		this.alertCtrl.create({
+			title: 'Remove List',
+			message: 'Would you like to remove this list?',
+			buttons: [
+				{
+					text: 'Cancel',
+					handler: () => {
+						itemSliding.close();
+					}
+				},
+				{
+					text: 'Remove',
+					handler: () => {
+						this.lists.remove(list);
+						itemSliding.close();
+					}
+				}
+			]
+		}).present();
 	}
 
 	viewMovie(movie: any): void {

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { ItemSliding, NavController, NavParams, AlertController, PopoverController } from 'ionic-angular';
 
 import { MoviePage } from '../movie/movie';
+import { ListMenuPage } from './list-menu';
 
 import { Lists } from '../../providers/lists';
 
@@ -11,11 +12,25 @@ import { Lists } from '../../providers/lists';
 })
 export class ListPage {
 	list: any;
+	filter: string = '';
 
-	constructor(public navCtrl: NavController,
-	public navParams: NavParams,
-	public lists: Lists) {
+	constructor(
+		public navCtrl: NavController,
+		public navParams: NavParams,
+		public alertCtrl: AlertController,
+		public popoverCtrl: PopoverController,
+		public lists: Lists
+	) {
 		this.list = navParams.data.list;
+	}
+
+	showMenu(event): void {
+		this.popoverCtrl.create(ListMenuPage, {
+			list: this.list,
+			navCtrl: this.navCtrl
+		}).present({
+			ev: event
+		});
 	}
 
 	viewMovie(movie: any): void {
@@ -24,8 +39,25 @@ export class ListPage {
 		});
 	}
 
-	removeMovie(movie: any): void {
-		this.list.movies.splice(this.list.movies.indexOf(movie), 1);
-		this.lists.save();
+	removeMovie(movie: any, itemSliding: ItemSliding): void {
+		this.alertCtrl.create({
+			title: 'Remove Movie',
+			message: 'Would you like to remove this movie from the list?',
+			buttons: [
+				{
+					text: 'Cancel',
+					handler: () => {
+						itemSliding.close();
+					}
+				},
+				{
+					text: 'Remove',
+					handler: () => {
+						this.lists.removeMovie(this.list, movie);
+						itemSliding.close();
+					}
+				}
+			]
+		}).present();
 	}
 }

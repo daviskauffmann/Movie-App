@@ -3,6 +3,7 @@ import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { Storage } from '@ionic/storage';
 
+import { TutorialPage } from '../pages/tutorial/tutorial';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { Movies } from '../providers/movies';
@@ -13,20 +14,27 @@ import { Reviews } from '../providers/reviews';
 	templateUrl: 'app.html'
 })
 export class MyApp {
-	rootPage: any = TabsPage;
+	rootPage: any;
 
 	constructor(platform: Platform,
 	public storage: Storage,
 	public movies: Movies,
 	public lists: Lists,
 	public reviews: Reviews) {
-		platform.ready().then(() => {
-			// Okay, so the platform is ready and our plugins are available.
-			// Here you can do any higher level native things you might need.
-			StatusBar.styleDefault();
-			Splashscreen.hide();
-		});
-		//this.storage.clear();
+		this.storage.clear();
+		this.storage.get('hasSeenTutorial').then((hasSeenTutorial) => {
+      if (hasSeenTutorial) {
+        this.rootPage = TabsPage;
+      } else {
+        this.rootPage = TabsPage;
+      }
+      platform.ready().then(() => {
+				// Okay, so the platform is ready and our plugins are available.
+				// Here you can do any higher level native things you might need.
+				StatusBar.styleDefault();
+				Splashscreen.hide();
+			});
+    });
 		this.movies.load();
 		this.lists.load();
 		this.reviews.load();
