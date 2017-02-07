@@ -20,7 +20,7 @@ export class AddReviewPage {
 		this.movie = viewCtrl.data.movie;
 		if (viewCtrl.data.review) {
 			this.rating = viewCtrl.data.review.rating;
-			this.review = viewCtrl.data.review.review
+			this.review = viewCtrl.data.review.review;
 		}
 	}
 
@@ -29,16 +29,19 @@ export class AddReviewPage {
 	}
 
 	add(): void {
-		this.reviews.get().forEach((review) => {
-			if (review.movie.imdbID == this.movie.imdbID) {
-				this.reviews.remove(review);
-			}
-		});
 		this.reviews.add({
 			movie: this.movie,
 			rating: this.rating,
-			review: this.review
+			review: this.review,
+			date: new Date()
 		});
+		this.viewCtrl.dismiss();
+	}
+
+	edit(): void {
+		this.viewCtrl.data.review.rating = this.rating;
+		this.viewCtrl.data.review.review = this.review;
+		this.reviews.save();
 		this.viewCtrl.dismiss();
 	}
 }

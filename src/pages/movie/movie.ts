@@ -38,7 +38,7 @@ export class MoviePage {
 		this.movies.get(this.movie.imdbID).subscribe((movie) => {
 			if (movie.Response == 'False') {
 				this.alertCtrl.create({
-					title: movie.Error,
+					subTitle: movie.Error,
 					buttons: ['Ok']
 				}).present();
 				return;
@@ -109,8 +109,7 @@ export class MoviePage {
 		for (let i = 0; i < top10.length; i++) {
 			if (top10[i].imdbID == this.movie.imdbID) {
 				this.alertCtrl.create({
-					title: 'Add to Top 10',
-					message: 'This movie is already in your Top 10',
+					subTitle: 'This movie is already in your Top 10',
 					buttons: ['Ok']
 				}).present();
 				return;
@@ -118,14 +117,13 @@ export class MoviePage {
 		}
 		if (top10.length == 10) {
 			this.alertCtrl.create({
-				title: 'Add to Top 10',
-				message: 'This will bump off the current #10 movie',
+				subTitle: 'This will bump off the current #10 movie',
 				buttons: [
 					{
 						text: 'Cancel'
 					},
 					{
-						text: 'Continue',
+						text: 'Ok',
 						handler: () => {
 							this.top10.remove(top10[10]);
 							this.top10.add(this.movie);

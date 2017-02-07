@@ -26,7 +26,7 @@ export class MyApp {
       if (hasSeenTutorial) {
         this.rootPage = TabsPage;
       } else {
-        this.rootPage = TabsPage;
+        this.rootPage = TutorialPage;
       }
       platform.ready().then(() => {
 				// Okay, so the platform is ready and our plugins are available.

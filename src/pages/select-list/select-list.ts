@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { ItemSliding, ViewController, ModalController, AlertController } from 'ionic-angular';
 
-import { AddListPage } from '../add-list/add-list';
-
 import { Lists } from '../../providers/lists';
 
 @Component({
@@ -31,25 +29,40 @@ export class SelectListPage {
 	}
 
 	addList(): void {
-		this.modalCtrl.create(AddListPage).present();
-	}
-
-	removeList(list: any, itemSliding: ItemSliding): void {
 		this.alertCtrl.create({
-			title: 'Remove List',
-			message: 'Would you like to remove this list?',
-			buttons: [
+			title: 'Add List',
+			inputs: [
 				{
-					text: 'Cancel',
-					handler: () => {
-						itemSliding.close();
-					}
+					name: 'name',
+					placeholder: 'Name'
 				},
 				{
-					text: 'Remove',
-					handler: () => {
-						this.lists.remove(list);
-						itemSliding.close();
+					name: 'description',
+					placeholder: 'Description'
+				}
+			],
+			buttons: [
+				{
+					text: 'Cancel'
+				},
+				{
+					text: 'Add',
+					handler: (data) => {
+						let lists = this.lists.get();
+						for (let i = 0; i < lists.length; i++) {
+							if (lists[i].name == data.name) {
+								this.alertCtrl.create({
+									subTitle: 'There is already a list with the same name',
+									buttons: ['Ok']
+								}).present();
+								return false;
+							}
+						}
+						this.lists.add({
+							name: data.name,
+							description: data.description,
+							movies: []
+						});
 					}
 				}
 			]
@@ -62,5 +75,28 @@ export class SelectListPage {
 		} else {
 			this.selections.push(list);
 		}
+	}
+
+	removeList(list: any, itemSliding: ItemSliding): void {
+		this.alertCtrl.create({
+			subTitle: 'Remove list?',
+			buttons: [
+				{
+					text: 'Cancel',
+					handler: () => {
+						itemSliding.close();
+					}
+				},
+				{
+					text: 'Ok',
+					handler: () => {
+						setTimeout(() => {
+							this.lists.remove(list);
+						}, 500);
+						itemSliding.close();
+					}
+				}
+			]
+		}).present();
 	}
 }

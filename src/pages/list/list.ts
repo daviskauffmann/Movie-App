@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ItemSliding, NavController, NavParams, AlertController, PopoverController } from 'ionic-angular';
+import { ItemSliding, NavController, NavParams, PopoverController } from 'ionic-angular';
 
 import { MoviePage } from '../movie/movie';
 import { ListMenuPage } from './list-menu';
@@ -17,7 +17,6 @@ export class ListPage {
 	constructor(
 		public navCtrl: NavController,
 		public navParams: NavParams,
-		public alertCtrl: AlertController,
 		public popoverCtrl: PopoverController,
 		public lists: Lists
 	) {
@@ -40,24 +39,9 @@ export class ListPage {
 	}
 
 	removeMovie(movie: any, itemSliding: ItemSliding): void {
-		this.alertCtrl.create({
-			title: 'Remove Movie',
-			message: 'Would you like to remove this movie from the list?',
-			buttons: [
-				{
-					text: 'Cancel',
-					handler: () => {
-						itemSliding.close();
-					}
-				},
-				{
-					text: 'Remove',
-					handler: () => {
-						this.lists.removeMovie(this.list, movie);
-						itemSliding.close();
-					}
-				}
-			]
-		}).present();
+		setTimeout(() => {
+			this.lists.removeMovie(this.list, movie);
+		}, 500);
+		itemSliding.close();
 	}
 }

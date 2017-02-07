@@ -13,7 +13,6 @@ import { Top10Page } from '../pages/top-10/top-10';
 import { MoviePage } from '../pages/movie/movie';
 import { ListPage } from '../pages/list/list';
 import { ListMenuPage } from '../pages/list/list-menu';
-import { AddListPage } from '../pages/add-list/add-list';
 import { SelectListPage } from '../pages/select-list/select-list';
 import { AddReviewPage } from '../pages/add-review/add-review';
 
@@ -34,7 +33,6 @@ import { Top10 } from '../providers/top-10';
 		MoviePage,
 		ListPage,
 		ListMenuPage,
-		AddListPage,
 		SelectListPage,
 		AddReviewPage
 	],
@@ -55,7 +53,6 @@ import { Top10 } from '../providers/top-10';
 		MoviePage,
 		ListPage,
 		ListMenuPage,
-		AddListPage,
 		SelectListPage,
 		AddReviewPage
 	],

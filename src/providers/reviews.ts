@@ -11,7 +11,8 @@ export class Reviews {
 				imdbID: 1
 			},
 			rating: 10,
-			review: "It was good"
+			review: "It was good",
+			date: new Date()
 		},
 		{
 			movie: {
@@ -20,7 +21,8 @@ export class Reviews {
 				imdbID: 2
 			},
 			rating: 10,
-			review: "It was good"
+			review: "It was good",
+			date: new Date()
 		},
 		{
 			movie: {
@@ -29,7 +31,8 @@ export class Reviews {
 				imdbID: 3
 			},
 			rating: 10,
-			review: "It was good"
+			review: "It was good",
+			date: new Date()
 		},
 		{
 			movie: {
@@ -38,7 +41,8 @@ export class Reviews {
 				imdbID: 4
 			},
 			rating: 10,
-			review: "It was good"
+			review: "It was good",
+			date: new Date()
 		}
 	];
 
@@ -79,9 +83,9 @@ export class Reviews {
 			});
 		}
 		return reviews.sort((review1, review2) => {
-			return review1.movie.Title.toLowerCase() < review2.movie.Title.toLowerCase() ? -1
-				: review1.movie.Title.toLowerCase() > review2.movie.Title.toLowerCase() ? 1
-					: 0;
+			return review1.date < review2.date ? 1
+				: review1.date > review2.date ? -1
+				: 0;
 		});
 	}
 }

@@ -13,6 +13,7 @@
 				<h2>{{review.movie.Title}} ({{review.movie.Year}})</h2>
 				<p><ion-icon name="star"></ion-icon>&nbsp;{{review.rating}}</p>
 				<p>{{review.review}}</p>
+				<p>{{review.date}}</p>
 			</button>
 			<ion-item-options>
 				<button ion-button color="danger" (click)="removeReview(review, itemSliding)">Remove</button>

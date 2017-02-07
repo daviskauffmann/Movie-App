@@ -27,24 +27,9 @@ export class Top10Page {
 	}
 
 	removeMovie(movie: any, itemSliding: ItemSliding): void {
-		this.alertCtrl.create({
-			title: 'Remove Movie',
-			message: 'Would you like to remove this movie?',
-			buttons: [
-				{
-					text: 'Cancel',
-					handler: () => {
-						itemSliding.close();
-					}
-				},
-				{
-					text: 'Remove',
-					handler: () => {
-						this.top10.remove(movie);
-						itemSliding.close();
-					}
-				}
-			]
-		}).present();
+		setTimeout(() => {
+			this.top10.remove(movie);
+		}, 500);
+		itemSliding.close();
 	}
 }

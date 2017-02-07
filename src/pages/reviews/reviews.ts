@@ -26,8 +26,7 @@ export class ReviewsPage {
 
 	removeReview(review: any, itemSliding: ItemSliding): void {
 		this.alertCtrl.create({
-			title: 'Remove Review',
-			message: 'Would you like to remove this review?',
+			subTitle: 'Remove review?',
 			buttons: [
 				{
 					text: 'Cancel',
@@ -36,9 +35,11 @@ export class ReviewsPage {
 					}
 				},
 				{
-					text: 'Remove',
+					text: 'Ok',
 					handler: () => {
-						this.reviews.remove(review);
+						setTimeout(() => {
+							this.reviews.remove(review);
+						}, 500);
 						itemSliding.close();
 					}
 				}

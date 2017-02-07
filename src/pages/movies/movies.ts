@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ItemSliding, NavController, ModalController, AlertController } from 'ionic-angular';
 
-import { AddListPage } from '../add-list/add-list';
 import { ListPage } from '../list/list';
 import { MoviePage } from '../movie/movie';
 
@@ -26,7 +25,44 @@ export class MoviesPage {
 	}
 
 	addList(): void {
-		this.modalCtrl.create(AddListPage).present();
+		this.alertCtrl.create({
+			title: 'Add List',
+			inputs: [
+				{
+					name: 'name',
+					placeholder: 'Name'
+				},
+				{
+					name: 'description',
+					placeholder: 'Description'
+				}
+			],
+			buttons: [
+				{
+					text: 'Cancel'
+				},
+				{
+					text: 'Add',
+					handler: (data) => {
+						let lists = this.lists.get();
+						for (let i = 0; i < lists.length; i++) {
+							if (lists[i].name == data.name) {
+								this.alertCtrl.create({
+									subTitle: 'There is already a list with the same name',
+									buttons: ['Ok']
+								}).present();
+								return false;
+							}
+						}
+						this.lists.add({
+							name: data.name,
+							description: data.description,
+							movies: []
+						});
+					}
+				}
+			]
+		}).present();
 	}
 
 	viewList(list: any): void {
@@ -37,8 +73,7 @@ export class MoviesPage {
 
 	removeList(list: any, itemSliding: ItemSliding): void {
 		this.alertCtrl.create({
-			title: 'Remove List',
-			message: 'Would you like to remove this list?',
+			subTitle: 'Remove list?',
 			buttons: [
 				{
 					text: 'Cancel',
@@ -47,9 +82,11 @@ export class MoviesPage {
 					}
 				},
 				{
-					text: 'Remove',
+					text: 'Ok',
 					handler: () => {
-						this.lists.remove(list);
+						setTimeout(() => {
+							this.lists.remove(list);
+						}, 500);
 						itemSliding.close();
 					}
 				}
