@@ -23,11 +23,11 @@ export class MyApp {
 	public reviews: Reviews) {
 		this.storage.clear();
 		this.storage.get('hasSeenTutorial').then((hasSeenTutorial) => {
-      if (hasSeenTutorial) {
-        this.rootPage = TabsPage;
-      } else {
-        this.rootPage = TutorialPage;
-      }
+      //if (hasSeenTutorial) {
+    		  this.rootPage = TabsPage;
+      //} else {
+      //  this.rootPage = TutorialPage;
+      //}
       platform.ready().then(() => {
 				// Okay, so the platform is ready and our plugins are available.
 				// Here you can do any higher level native things you might need.
