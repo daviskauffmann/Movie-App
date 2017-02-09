@@ -31,7 +31,7 @@ export class MoviePage {
 		public top10: Top10
 	) {
 		this.movie = this.navParams.data.movie;
-		/*let loader = this.loadingCtrl.create({
+		let loader = this.loadingCtrl.create({
 			content: 'Loading...',
 		});
 		loader.present();
@@ -52,7 +52,7 @@ export class MoviePage {
 			loader.dismiss();
 		}, () => {
 			loader.dismiss();
-		});*/
+		});
 	}
 
 	selectList(): void {

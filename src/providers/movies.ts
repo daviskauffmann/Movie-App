@@ -34,21 +34,22 @@ export class Movies {
 	get(id: string): Observable<any> {
 		console.log('getting movie with id: ' + id);
 		for (let i = 0; i < this.cache.length; i++) {
-			if (this.cache[i].imdbID == id) {
+			if (this.cache[i].id == id) {
 				console.log('movie in cache');
-				return Observable.create((observer) => {
-					observer.next(this.cache[i]);
-					observer.complete();
-				});
+				return Observable.of(this.cache[i].movie);
 			}
 		}
-		return this.http.get('http://www.omdbapi.com/?i=' + id + '&plot=short&r=json').map((value) => {
+		return Observable.of({});
+		/*return this.http.get('http://www.omdbapi.com/?i=' + id + '&plot=short&r=json').map((value) => {
 			console.log('movie downloaded');
 			let movie = value.json();
-			this.cache.push(movie);
+			this.cache.push({
+				id: id,
+				movie: movie
+			});
 			this.save();
 			return movie;
-		});
+		});*/
 		/*return this.http.get('https://api.themoviedb.org/3/movie/' + id + '?api_key=' + this.apiKey).map((value) => {
 			console.log('movie downloaded');
 			let movie = value.json();
@@ -58,25 +59,79 @@ export class Movies {
 		});*/
 	}
 
-	search(query: string): Observable<any> {
+	search(query: string, page: number): Observable<any> {
 		console.log('getting results for query: ' + query);
 		for (let i = 0; i < this.cache.length; i++) {
-			if (this.cache[i].query == query) {
+			if (this.cache[i].query == query && this.cache[i].page == page) {
 				console.log('results in cache');
-				return Observable.create((observer) => {
-					observer.next(this.cache[i]);
-					observer.complete();
-				});
+				return Observable.of(this.cache[i].results);
 			}
 		}
-		return this.http.get('http://www.omdbapi.com/?s=' + query + '&type=movie&r=json').map((value) => {
+		return Observable.of({
+			Search: [
+				{
+					Title: 'Movie 1',
+					Year: "2017",
+					imdbID: 1
+				},
+				{
+					Title: 'Movie 2',
+					Year: "2017",
+					imdbID: 2
+				},
+				{
+					Title: 'Movie 3',
+					Year: "2017",
+					imdbID: 3
+				},
+				{
+					Title: 'Movie 4',
+					Year: "2017",
+					imdbID: 4
+				},
+				{
+					Title: 'Movie 5',
+					Year: "2017",
+					imdbID: 5
+				},
+				{
+					Title: 'Movie 6',
+					Year: "2017",
+					imdbID: 6
+				},
+				{
+					Title: 'Movie 7',
+					Year: "2017",
+					imdbID: 7
+				},
+				{
+					Title: 'Movie 8',
+					Year: "2017",
+					imdbID: 8
+				},
+				{
+					Title: 'Movie 9',
+					Year: "2017",
+					imdbID: 9
+				},
+				{
+					Title: 'Movie 10',
+					Year: "2017",
+					imdbID: 10
+				}
+			]
+		});
+		/*return this.http.get('http://www.omdbapi.com/?s=' + query + '&type=movie&r=json&page=' + page).map((value) => {
 			console.log('results downloaded');
 			let results = value.json();
-			results.query = query;
-			this.cache.push(results);
+			this.cache.push({
+				query: query,
+				page: page,
+				results: results
+			});
 			this.save();
 			return results;
-		});
+		});*/
 		/*return this.http.get('https://api.themoviedb.org/3/search/movie?query=' + query + '&api_key=' + this.apiKey).map((value) => {
 			console.log('results downloaded');
 			let results = value.json();

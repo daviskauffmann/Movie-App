@@ -32,7 +32,7 @@ export class Lists {
 					Title: 'Movie 5',
 					Year: "2017",
 					imdbID: 5
-				},
+				}
 			]
 		},
 		{
@@ -73,7 +73,7 @@ export class Lists {
 					Title: 'Movie 12',
 					Year: "2017",
 					imdbID: 12
-				},
+				}
 			]
 		}
 	];

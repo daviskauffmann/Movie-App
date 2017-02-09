@@ -11,7 +11,7 @@
 <ion-content>
 	<ion-list [reorder]="reorder" (ionItemReorder)="top10.reorder($event)">
 		<ion-item-sliding *ngFor="let movie of top10.get(); let index = index" #itemSliding>
-			<ion-item text-wrap (click)="viewMovie(movie)">
+			<button ion-item text-wrap (click)="viewMovie(movie)">
 				<span item-left>
 					<h1>{{index + 1}}</h1>
 				</span>
@@ -19,7 +19,7 @@
 					<img src=""/>
 				</ion-thumbnail>
 				<h2>{{movie.Title}} ({{movie.Year}})</h2>
-			</ion-item>
+			</button>
 			<ion-item-options>
 				<button ion-button color="danger" (click)="removeMovie(movie, itemSliding)">Remove</button>
 			</ion-item-options>
