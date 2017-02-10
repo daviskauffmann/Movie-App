@@ -10,10 +10,7 @@
 <ion-content>
 	<ion-list>
 		<ion-item>
-			<ion-range min="0" max="10" pin="true" snaps="true" [(ngModel)]="rating">
-				<ion-icon range-left name="star-outline"></ion-icon>
-				<ion-icon range-right name="star"></ion-icon>
-			</ion-range>
+			<rating [(ngModel)]="rating" max="5"></rating>
 		</ion-item>
 		<ion-item>
 			<ion-label>Review</ion-label>

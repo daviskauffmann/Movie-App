@@ -4,46 +4,50 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class Reviews {
 	private reviews: any[] = [
-		/*{
+		{
 			movie: {
 				Title: 'Movie 1',
-				Year: "2017",
+				Year: '2017',
+				Poster: 'http://lorempixel.com/100/100/',
 				imdbID: 1
 			},
-			rating: 10,
-			review: "It was good",
+			rating: 5,
+			review: 'It was good',
 			date: new Date()
 		},
 		{
 			movie: {
 				Title: 'Movie 2',
-				Year: "2017",
+				Year: '2017',
+				Poster: 'http://lorempixel.com/100/100/',
 				imdbID: 2
 			},
-			rating: 10,
-			review: "It was good",
+			rating: 5,
+			review: 'It was good',
 			date: new Date()
 		},
 		{
 			movie: {
 				Title: 'Movie 3',
-				Year: "2017",
+				Year: '2017',
+				Poster: 'http://lorempixel.com/100/100/',
 				imdbID: 3
 			},
-			rating: 10,
-			review: "It was good",
+			rating: 5,
+			review: 'It was good',
 			date: new Date()
 		},
 		{
 			movie: {
 				Title: 'Movie 4',
-				Year: "2017",
+				Year: '2017',
+				Poster: 'http://lorempixel.com/100/100/',
 				imdbID: 4
 			},
-			rating: 10,
-			review: "It was good",
+			rating: 5,
+			review: 'It was good',
 			date: new Date()
-		}*/
+		}
 	];
 
 	constructor(public storage: Storage) {

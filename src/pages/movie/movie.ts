@@ -35,15 +35,15 @@ export class MoviePage {
 			content: 'Loading...',
 		});
 		loader.present();
-		this.movies.get(this.movie.imdbID).subscribe((movie) => {
-			if (movie.Response == 'False') {
+		this.movies.get(this.movie.imdbID).subscribe((response) => {
+			if (response.Response == 'False') {
 				this.alertCtrl.create({
-					subTitle: movie.Error,
+					subTitle: response.Error,
 					buttons: ['Ok']
 				}).present();
 				return;
 			}
-			this.fullMovie = movie;
+			this.fullMovie = response;
 			this.metascore = parseInt(this.fullMovie.Metascore) > 60 ? 'favorable'
 				: parseInt(this.fullMovie.Metascore) > 39 ? 'mixed'
 				: 'unfavorable';
@@ -97,7 +97,7 @@ export class MoviePage {
 		let stars = [];
 		let review = this.getReview();
 		if (review) {
-			for (let i = 0; i < 10; i++) {
+			for (let i = 0; i < 5; i++) {
 				stars.push(i < review.rating);
 			}
 		}

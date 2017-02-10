@@ -1,6 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { Ionic2RatingModule } from 'ionic2-rating';
 
 import { MyApp } from './app.component';
 
@@ -12,7 +13,6 @@ import { ReviewsPage } from '../pages/reviews/reviews';
 import { Top10Page } from '../pages/top-10/top-10';
 import { MoviePage } from '../pages/movie/movie';
 import { ListPage } from '../pages/list/list';
-import { ListMenuPage } from '../pages/list/list-menu';
 import { SelectListPage } from '../pages/select-list/select-list';
 import { AddReviewPage } from '../pages/add-review/add-review';
 
@@ -32,12 +32,12 @@ import { Top10 } from '../providers/top-10';
 		Top10Page,
 		MoviePage,
 		ListPage,
-		ListMenuPage,
 		SelectListPage,
 		AddReviewPage
 	],
 	imports: [
-		IonicModule.forRoot(MyApp)
+		IonicModule.forRoot(MyApp),
+		Ionic2RatingModule
 	],
 	bootstrap: [
 		IonicApp
@@ -52,7 +52,6 @@ import { Top10 } from '../providers/top-10';
 		Top10Page,
 		MoviePage,
 		ListPage,
-		ListMenuPage,
 		SelectListPage,
 		AddReviewPage
 	],

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, AlertController, Content, InfiniteScroll } from 'ionic-angular';
+import { NavController, AlertController, Content, Searchbar, InfiniteScroll } from 'ionic-angular';
 
 import { MoviePage } from '../movie/movie';
 
@@ -11,9 +11,12 @@ import { Movies } from '../../providers/movies';
 })
 export class SearchPage {
 	@ViewChild(Content) content: Content;
+	@ViewChild(Searchbar) searchBar: Searchbar;
+	@ViewChild(InfiniteScroll) infiniteScroll: InfiniteScroll;
 
 	query: string = '';
 	page: number = 1;
+	lastPage: boolean = false;
 	results: any[] = [];
 
 	constructor(
@@ -24,36 +27,44 @@ export class SearchPage {
 
 	}
 
-	searchMovies(event): void {
+	searchMovies(): void {
 		this.content.scrollToTop();
-		this.query = event.target.value.trim();
+		this.infiniteScroll.enable(true);
+		this.query = this.searchBar.value.toString();
 		this.page = 1;
+		this.lastPage = false;
 		this.results = [];
 		if (this.query) {
-			this.movies.search(this.query, this.page).subscribe((results) => {
-				if (results.Response == 'False') {
+			this.movies.search(this.query, this.page).subscribe((response) => {
+				if (response.Response == 'False') {
 					return;
 				}
 				this.page++;
-				this.results = results.Search;
+				this.results = response.Search;
 			}, (error) => {
 				console.log(error);
 			});
 		}
 	}
 
-	infiniteScroll(infiniteScroll: InfiniteScroll): void {
-		this.movies.search(this.query, this.page).subscribe((results) => {
-			if (results.Response == 'False') {
+	searchMoreMovies(): void {
+		if (this.lastPage) {
+			this.infiniteScroll.complete();
+			this.infiniteScroll.enable(false);
+			return;
+		}
+		this.movies.search(this.query, this.page).subscribe((response) => {
+			if (response.Response == 'False') {
+				this.lastPage = true;
 				return;
 			}
 			this.page++;
-			this.results = this.results.concat(results.Search);
+			this.results = this.results.concat(response.Search);
 		}, (error) => {
 			console.log(error);
-			infiniteScroll.complete();
+			this.infiniteScroll.complete();
 		}, () => {
-			infiniteScroll.complete();
+			this.infiniteScroll.complete();
 		});
 	}
 

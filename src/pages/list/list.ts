@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, PopoverController, ItemSliding } from 'ionic-angular';
+import { NavController, NavParams, ActionSheetController, AlertController, ItemSliding } from 'ionic-angular';
 
 import { MoviePage } from '../movie/movie';
-import { ListMenuPage } from './list-menu';
 
 import { Lists } from '../../providers/lists';
 
@@ -17,19 +16,87 @@ export class ListPage {
 	constructor(
 		public navCtrl: NavController,
 		public navParams: NavParams,
-		public popoverCtrl: PopoverController,
+		public actionSheetCtrl: ActionSheetController,
+		public alertCtrl: AlertController,
 		public lists: Lists
 	) {
 		this.list = navParams.data.list;
 	}
 
 	showMenu(event): void {
-		this.popoverCtrl.create(ListMenuPage, {
-			list: this.list,
-			navCtrl: this.navCtrl
-		}).present({
-			ev: event
-		});
+		this.actionSheetCtrl.create({
+			title: this.list.name,
+			buttons: [
+				{
+					text: 'Remove',
+          role: 'destructive',
+					handler: () => {
+						this.alertCtrl.create({
+							subTitle: 'Remove list?',
+							buttons: [
+								{
+									text: 'Cancel'
+								},
+								{
+									text: 'Ok',
+									handler: () => {
+										this.lists.remove(this.list);
+										this.navCtrl.pop();
+									}
+								}
+							]
+						}).present();
+					}
+				},
+				{
+					text: 'Edit',
+					handler: () => {
+						this.alertCtrl.create({
+							title: 'Edit List',
+							inputs: [
+								{
+									name: 'name',
+									placeholder: 'Name',
+									value: this.list.name
+								},
+								{
+									name: 'description',
+									placeholder: 'Description',
+									value: this.list.description
+								}
+							],
+							buttons: [
+								{
+									text: 'Cancel'
+								},
+								{
+									text: 'Edit',
+									handler: (data) => {
+										let lists = this.lists.get();
+										for (let i = 0; i < lists.length; i++) {
+											if (lists[i] != this.list && lists[i].name == data.name) {
+												this.alertCtrl.create({
+													subTitle: 'There is already a list with the same name',
+													buttons: ['Ok']
+												}).present();
+												return false;
+											}
+										}
+										this.list.name = data.name;
+										this.list.description = data.description;
+										this.lists.save();
+									}
+								}
+							]
+						}).present();
+					}
+				},
+				{
+					text: 'Cancel',
+					role: 'cancel'
+				}
+			]
+		}).present();
 	}
 
 	viewMovie(movie: any): void {
