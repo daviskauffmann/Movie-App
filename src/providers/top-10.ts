@@ -5,7 +5,7 @@ import { reorderArray } from 'ionic-angular';
 @Injectable()
 export class Top10 {
 	private top10: any[] = [
-		{
+		/*{
 			Title: 'Movie 1',
 			Year: "2017",
 			imdbID: 1
@@ -49,7 +49,7 @@ export class Top10 {
 			Title: 'Movie 9',
 			Year: "2017",
 			imdbID: 9
-		}
+		}*/
 	];
 
 	constructor(public storage: Storage) {

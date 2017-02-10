@@ -8,7 +8,7 @@ export class Lists {
 			name: 'To Watch',
 			description: 'Movies you want to watch',
 			movies: [
-				{
+				/*{
 					Title: 'Movie 1',
 					Year: "2017",
 					imdbID: 1
@@ -32,14 +32,14 @@ export class Lists {
 					Title: 'Movie 5',
 					Year: "2017",
 					imdbID: 5
-				}
+				}*/
 			]
 		},
 		{
 			name: 'Watched',
 			description: 'Movies you have watched',
 			movies: [
-				{
+				/*{
 					Title: 'Movie 6',
 					Year: "2017",
 					imdbID: 6
@@ -73,7 +73,7 @@ export class Lists {
 					Title: 'Movie 12',
 					Year: "2017",
 					imdbID: 12
-				}
+				}*/
 			]
 		}
 	];

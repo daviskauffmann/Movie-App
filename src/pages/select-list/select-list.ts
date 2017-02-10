@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ItemSliding, ViewController, ModalController, AlertController } from 'ionic-angular';
+import { ViewController, ModalController, AlertController, ItemSliding } from 'ionic-angular';
 
 import { Lists } from '../../providers/lists';
 

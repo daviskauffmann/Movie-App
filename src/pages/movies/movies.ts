@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ItemSliding, NavController, ModalController, AlertController } from 'ionic-angular';
+import { NavController, ModalController, AlertController, ItemSliding } from 'ionic-angular';
 
 import { ListPage } from '../list/list';
 import { MoviePage } from '../movie/movie';

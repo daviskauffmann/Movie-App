@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Rx';
 @Injectable()
 export class Movies {
 	private cache: any[] = [];
-	//private apiKey: string = '1f9e595c276fb6c99c4ae06adfd2ed9b';
+	private apiKey: string = '1f9e595c276fb6c99c4ae06adfd2ed9b';
 
 	constructor(
 		public storage: Storage,
@@ -39,7 +39,9 @@ export class Movies {
 				return Observable.of(this.cache[i].movie);
 			}
 		}
-		return Observable.of({});
+		/*return Observable.of({
+
+		});*/
 		/*return this.http.get('http://www.omdbapi.com/?i=' + id + '&plot=short&r=json').map((value) => {
 			console.log('movie downloaded');
 			let movie = value.json();
@@ -50,13 +52,13 @@ export class Movies {
 			this.save();
 			return movie;
 		});*/
-		/*return this.http.get('https://api.themoviedb.org/3/movie/' + id + '?api_key=' + this.apiKey).map((value) => {
+		return this.http.get('https://api.themoviedb.org/3/movie/' + id + '?api_key=' + this.apiKey).map((value) => {
 			console.log('movie downloaded');
 			let movie = value.json();
 			this.cache.push(movie);
 			this.save();
 			return movie;
-		});*/
+		});
 	}
 
 	search(query: string, page: number): Observable<any> {
@@ -67,7 +69,7 @@ export class Movies {
 				return Observable.of(this.cache[i].results);
 			}
 		}
-		return Observable.of({
+		/*return Observable.of({
 			Search: [
 				{
 					Title: 'Movie 1',
@@ -120,7 +122,7 @@ export class Movies {
 					imdbID: 10
 				}
 			]
-		});
+		});*/
 		/*return this.http.get('http://www.omdbapi.com/?s=' + query + '&type=movie&r=json&page=' + page).map((value) => {
 			console.log('results downloaded');
 			let results = value.json();
@@ -132,13 +134,13 @@ export class Movies {
 			this.save();
 			return results;
 		});*/
-		/*return this.http.get('https://api.themoviedb.org/3/search/movie?query=' + query + '&api_key=' + this.apiKey).map((value) => {
+		return this.http.get('https://api.themoviedb.org/3/search/movie?query=' + query + '&api_key=' + this.apiKey).map((value) => {
 			console.log('results downloaded');
 			let results = value.json();
 			results.query = query;
 			this.cache.push(results);
 			this.save();
 			return results;
-		});*/
+		});
 	}
 }
