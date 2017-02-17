@@ -19,7 +19,7 @@
 		<ion-item-sliding *ngFor="let movie of lists.getMovies(list, filter)" #itemSliding>
 			<button ion-item text-wrap (click)="viewMovie(movie)">
 				<ion-thumbnail item-left>
-					<img src="{{movie.Poster}}" />
+					<img [src]="movie.Poster" />
 				</ion-thumbnail>
 				<h2>{{movie.Title}} ({{movie.Year}})</h2>
 			</button>

@@ -8,7 +8,7 @@
 		<ion-item-sliding *ngFor="let review of reviews.get(null)" #itemSliding>
 			<button ion-item text-wrap (click)="viewMovie(review.movie)">
 				<ion-thumbnail item-left>
-					<img src="{{review.movie.Poster}}" />
+					<img [src]="review.movie.Poster" />
 				</ion-thumbnail>
 				<h2>{{review.movie.Title}} ({{review.movie.Year}})</h2>
 				<p><ion-icon name="star"></ion-icon>&nbsp;{{review.rating}}</p>

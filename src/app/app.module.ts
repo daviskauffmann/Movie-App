@@ -16,7 +16,7 @@ import { ListPage } from '../pages/list/list';
 import { SelectListPage } from '../pages/select-list/select-list';
 import { AddReviewPage } from '../pages/add-review/add-review';
 
-import { Movies } from '../providers/movies';
+import { Api } from '../providers/api';
 import { Lists } from '../providers/lists';
 import { Reviews } from '../providers/reviews';
 import { Top10 } from '../providers/top-10';
@@ -61,7 +61,7 @@ import { Top10 } from '../providers/top-10';
 			useClass: IonicErrorHandler 
 		},
 		Storage,
-		Movies,
+		Api,
 		Lists,
 		Reviews,
 		Top10

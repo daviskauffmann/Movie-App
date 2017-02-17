@@ -8,17 +8,20 @@
 	</ion-navbar>
 </ion-header>
 <ion-content>
-	<ion-list>
-		<ion-item>
+	<ion-card>
+		<ion-card-header>Rating</ion-card-header>
+		<ion-card-content>
 			<rating [(ngModel)]="rating" max="5"></rating>
-		</ion-item>
-		<ion-item>
-			<ion-label>Review</ion-label>
+		</ion-card-content>
+	</ion-card>
+	<ion-card>
+		<ion-card-header>Review</ion-card-header>
+		<ion-card-content>
 			<ion-textarea rows="6" [(ngModel)]="review"></ion-textarea>
-		</ion-item>
-		<div padding>
-			<button ion-button block *ngIf="!viewCtrl.data.review" (click)="add()">Add</button>
-			<button ion-button block *ngIf="viewCtrl.data.review" (click)="edit()">Edit</button>
-		</div>
-	</ion-list>
+		</ion-card-content>
+	</ion-card>
+	<div padding>
+		<button ion-button block *ngIf="!viewCtrl.data.review" (click)="add()">Add</button>
+		<button ion-button block *ngIf="viewCtrl.data.review" (click)="edit()">Edit</button>
+	</div>
 </ion-content>

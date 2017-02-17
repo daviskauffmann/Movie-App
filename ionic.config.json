@@ -2,5 +2,11 @@
   "name": "movies",
   "app_id": "62212fd4",
   "v2": true,
-  "typescript": true
+  "typescript": true,
+	"proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "http://www.omdbapi.com/"
+    }  
+  ]
 }

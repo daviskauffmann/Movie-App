@@ -4,7 +4,7 @@ import { NavController, NavParams, ModalController, LoadingController, AlertCont
 import { SelectListPage } from '../select-list/select-list';
 import { AddReviewPage } from '../add-review/add-review';
 
-import { Movies } from '../../providers/movies';
+import { Api } from '../../providers/api';
 import { Lists } from '../../providers/lists';
 import { Reviews } from '../../providers/reviews';
 import { Top10 } from '../../providers/top-10';
@@ -25,7 +25,7 @@ export class MoviePage {
 		public loadingCtrl: LoadingController,
 		public alertCtrl: AlertController,
 		public toastCtrl: ToastController,
-		public movies: Movies,
+		public api: Api,
 		public lists: Lists,
 		public reviews: Reviews,
 		public top10: Top10
@@ -35,7 +35,7 @@ export class MoviePage {
 			content: 'Loading...',
 		});
 		loader.present();
-		this.movies.get(this.movie.imdbID).subscribe((response) => {
+		this.api.get(this.movie.imdbID).subscribe((response) => {
 			if (response.Response == 'False') {
 				this.alertCtrl.create({
 					subTitle: response.Error,

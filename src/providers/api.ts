@@ -5,7 +5,7 @@ import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs/Rx';
 
 @Injectable()
-export class Movies {
+export class Api {
 	private cache: any[] = [];
 	//private apiKey: string = '1f9e595c276fb6c99c4ae06adfd2ed9b';
 
@@ -64,7 +64,7 @@ export class Movies {
 			imdbVotes: '702,863',
 			imdbID: '1'
 		});
-		/*return this.http.get('http://www.omdbapi.com/?i=' + id + '&plot=short&r=json').map((response) => {
+		/*return this.http.get('/api?i=' + id + '&plot=short&r=json').map((response) => {
 			console.log('response downloaded');
 			response = response.json();
 			this.add({
@@ -161,7 +161,7 @@ export class Movies {
 				}
 			]
 		});
-		/*return this.http.get('http://www.omdbapi.com/?s=' + query + '&type=movie&r=json&page=' + page).map((response) => {
+		/*return this.http.get('/api?s=' + query + '&type=movie&r=json&page=' + page).map((response) => {
 			console.log('response downloaded');
 			response = response.json();
 			this.add({

@@ -1,9 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, AlertController, Content, Searchbar, InfiniteScroll } from 'ionic-angular';
+import { NavController, AlertController, Content, InfiniteScroll } from 'ionic-angular';
 
 import { MoviePage } from '../movie/movie';
 
-import { Movies } from '../../providers/movies';
+import { Api } from '../../providers/api';
 
 @Component({
 	selector: 'page-search',
@@ -11,7 +11,6 @@ import { Movies } from '../../providers/movies';
 })
 export class SearchPage {
 	@ViewChild(Content) content: Content;
-	@ViewChild(Searchbar) searchBar: Searchbar;
 	@ViewChild(InfiniteScroll) infiniteScroll: InfiniteScroll;
 
 	query: string = '';
@@ -22,7 +21,7 @@ export class SearchPage {
 	constructor(
 		public navCtrl: NavController,
 		public alertCtrl: AlertController,
-		public movies: Movies
+		public api: Api
 	) {
 
 	}
@@ -30,12 +29,11 @@ export class SearchPage {
 	searchMovies(): void {
 		this.content.scrollToTop();
 		this.infiniteScroll.enable(true);
-		this.query = this.searchBar.value.toString();
 		this.page = 1;
 		this.lastPage = false;
 		this.results = [];
 		if (this.query) {
-			this.movies.search(this.query, this.page).subscribe((response) => {
+			this.api.search(this.query, this.page).subscribe((response) => {
 				if (response.Response == 'False') {
 					return;
 				}
@@ -53,7 +51,7 @@ export class SearchPage {
 			this.infiniteScroll.enable(false);
 			return;
 		}
-		this.movies.search(this.query, this.page).subscribe((response) => {
+		this.api.search(this.query, this.page).subscribe((response) => {
 			if (response.Response == 'False') {
 				this.lastPage = true;
 				return;

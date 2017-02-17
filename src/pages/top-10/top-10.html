@@ -12,11 +12,11 @@
 	<ion-list [reorder]="reorder" (ionItemReorder)="top10.reorder($event)">
 		<ion-item-sliding *ngFor="let movie of top10.get(); let index = index" #itemSliding>
 			<button ion-item text-wrap (click)="viewMovie(movie)">
-				<span item-left>
+				<span class="rank" item-left>
 					<h1>{{index + 1}}</h1>
 				</span>
 				<ion-thumbnail item-left>
-					<img src="{{movie.Poster}}"/>
+					<img [src]="movie.Poster"/>
 				</ion-thumbnail>
 				<h2>{{movie.Title}} ({{movie.Year}})</h2>
 			</button>
