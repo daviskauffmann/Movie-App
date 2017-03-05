@@ -7,7 +7,6 @@ import { Observable } from 'rxjs/Rx';
 @Injectable()
 export class Api {
 	private cache: any[] = [];
-	//private apiKey: string = '1f9e595c276fb6c99c4ae06adfd2ed9b';
 
 	constructor(
 		public storage: Storage,
@@ -44,7 +43,7 @@ export class Api {
 				return Observable.of(this.cache[i].response);
 			}
 		}
-		return Observable.of({
+		/*return Observable.of({
 			Title: 'Up',
 			Year: '2009',
 			Poster: 'http://lorempixel.com/100/100/',
@@ -63,25 +62,16 @@ export class Api {
 			imdbRating: '8.3',
 			imdbVotes: '702,863',
 			imdbID: '1'
+		});*/
+		return this.http.get('/api?i=' + id + '&plot=short&r=json').map((response) => {
+			console.log('response downloaded');
+			response = response.json();
+			this.add({
+				id: id,
+				response: response
+			});
+			return response;
 		});
-		/*return this.http.get('/api?i=' + id + '&plot=short&r=json').map((response) => {
-			console.log('response downloaded');
-			response = response.json();
-			this.add({
-				id: id,
-				response: response
-			});
-			return response;
-		});*/
-		/*return this.http.get('https://api.themoviedb.org/3/movie/' + id + '?api_key=' + this.apiKey).map((response) => {
-			console.log('response downloaded');
-			response = response.json();
-			this.add({
-				id: id,
-				response: response
-			});
-			return response;
-		});*/
 	}
 
 	search(query: string, page: number): Observable<any> {
@@ -92,7 +82,7 @@ export class Api {
 				return Observable.of(this.cache[i].response);
 			}
 		}
-		if (page == 4) {
+		/*if (page == 4) {
 			return Observable.of({
 				Response: 'False'
 			})
@@ -160,8 +150,8 @@ export class Api {
 					imdbID: 10
 				}
 			]
-		});
-		/*return this.http.get('/api?s=' + query + '&type=movie&r=json&page=' + page).map((response) => {
+		});*/
+		return this.http.get('/api?s=' + query + '&type=movie&r=json&page=' + page).map((response) => {
 			console.log('response downloaded');
 			response = response.json();
 			this.add({
@@ -170,17 +160,6 @@ export class Api {
 				response: response
 			});
 			return response;
-		});*/
-		/*return this.http.get('https://api.themoviedb.org/3/search/movie?query=' + query + '&api_key=' + this.apiKey).map((response) => {
-			console.log('results downloaded');
-			let results = response.json();
-			response = response.json();
-			this.add({
-				query: query,
-				page: page,
-				response: response
-			});
-			return response;
-		});*/
+		});
 	}
 }

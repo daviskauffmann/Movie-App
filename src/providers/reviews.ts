@@ -4,7 +4,7 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class Reviews {
 	private reviews: any[] = [
-		{
+		/*{
 			movie: {
 				Title: 'Movie 1',
 				Year: '2017',
@@ -47,7 +47,7 @@ export class Reviews {
 			rating: 5,
 			review: 'It was good',
 			date: new Date()
-		}
+		}*/
 	];
 
 	constructor(public storage: Storage) {

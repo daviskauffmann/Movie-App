@@ -4,7 +4,7 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class Lists {
 	private lists: any[] = [
-		{
+		/*{
 			name: 'To Watch',
 			description: 'Movies you want to watch',
 			movies: [
@@ -87,7 +87,7 @@ export class Lists {
 					imdbID: 12
 				}
 			]
-		}
+		}*/
 	];
 
 	constructor(public storage: Storage) {
